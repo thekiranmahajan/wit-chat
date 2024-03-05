@@ -1,0 +1,19 @@
+{
+  "name": "wit-chat",
+  "version": "1.0.0",
+  "description": "Realtime chat app using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Realtime",
+    "Chat",
+    "App",
+    "WitChat",
+    "MERN",
+    "Stack"
+  ],
+  "author": "Kiran Mahajan",
+  "license": "ISC"
+}
