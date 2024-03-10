@@ -1,6 +1,7 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const { chats } = require("./data/dummyData");
+import express from "express";
+import dotenv from "dotenv";
+import chats from "./data/dummyChats.js";
+
 const app = express();
 dotenv.config();
 
@@ -13,7 +14,6 @@ app.get("/api/chat", (req, res) => {
 });
 
 app.get("/api/chat/:id", (req, res) => {
-  // console.log(req.params.id);
   const singleChat = chats.find((c) => c._id === req.params.id);
   res.send(singleChat);
 });
