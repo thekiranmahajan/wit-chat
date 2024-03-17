@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className="bg-[url('./assets/background.svg')] bg-center bg-no-repeat bg-cover min-h-screen w-full text-white flex flex-col items-center ">
       <img className="h-24 w-24 rounded-2xl mt-8" src={logo} alt="logo" />
-      <form className="mt-10 bg-[#0C1C30] max-w-[450px] w-3/5  p-5 flex flex-col rounded-2xl pb-4 font-Marvel select-none">
+      <form className="mt-10 bg-[#0C1C30] max-w-[500px] w-3/4 sm:w-2/3 p-5 flex flex-col rounded-2xl pb-4 font-Marvel select-none">
         <h2 className="font-extrabold text-2xl mb-1 text-center">Sign Up</h2>
         <FormField
           label="Name"
@@ -70,6 +70,7 @@ const Home = () => {
           inputType="file"
           iconName={faUserAstronaut}
           id="avatar"
+          isFileInput={true}
         />
       </form>
     </div>
