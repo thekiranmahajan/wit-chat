@@ -72,6 +72,18 @@ const Home = () => {
           id="avatar"
           isFileInput={true}
         />
+        <div className="flex flex-col items-center w-full mt-5 gap-2">
+          <input
+            type="submit"
+            value="Sign-Up"
+            className="h-10 bg-[#E9705A] w-3/5 rounded-lg font-extrabold text-lg"
+          />
+          <input
+            type="submit"
+            value="Sign-Up as Guest"
+            className="h-10 w-3/5 bg-[#96446E] rounded-lg font-extrabold text-lg"
+          />
+        </div>
       </form>
     </div>
   );
