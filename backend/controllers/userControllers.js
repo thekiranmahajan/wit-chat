@@ -29,6 +29,25 @@ export const signup = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    throw new Error("Failed to create use");
+    res.status(400);
+    throw new Error("Failed to create user");
+  }
+});
+
+export const login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid Email or Password");
   }
 });
