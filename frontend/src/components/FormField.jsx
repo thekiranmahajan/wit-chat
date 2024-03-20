@@ -27,7 +27,6 @@ const FormField = ({
           type={inputType}
           placeholder={placeholder}
           id={id}
-          required={isRequired}
           onChange={onChange}
           accept={isFileInput ? "image/*" : ""}
         />
