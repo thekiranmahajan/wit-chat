@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { logo } from "../assets";
-import { FormField } from "../components";
+import { FormField, Button } from "../components";
 import {
   faEnvelope,
   faEye,
@@ -11,15 +11,93 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+
 const Home = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [avatarURL, setAvatarURL] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("submitted!!");
   };
+
+  const uploadAvatar = async (avatar) => {
+    console.log(avatar);
+    if (!avatar) {
+      toast.warn("Please select an avatar.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+    if (avatar.type === "image/jpeg" || avatar.type === "image/png") {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append("file", avatar);
+      formData.append("upload_preset", "image_preset");
+      formData.append("cloud_name", "ray69wit");
+      console.log(formData);
+
+      try {
+        const response = await axios.post(
+          "https://api.cloudinary.com/v1_1/ray69wit/image/upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        const { secure_url } = response.data;
+        console.log("Image uploaded successfully:", secure_url);
+        setAvatarURL(secure_url);
+      } catch (error) {
+        console.error("Upload failed:", error);
+        toast.error("Upload failed. Please try again.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      toast.warn("Please select an image file.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  };
+
   return (
     <div className="bg-[url('./assets/background.svg')] bg-center bg-no-repeat bg-cover min-h-screen w-full text-white flex flex-col items-center ">
       <img
@@ -60,6 +138,7 @@ const Home = () => {
               placeholder="Wit"
               id="name"
               isRequired={true}
+              onChange={(e) => setName(e.target.value)}
             />
             <FormField
               label="Email"
@@ -68,6 +147,7 @@ const Home = () => {
               placeholder="wit@example.com"
               id="email"
               isRequired={true}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <div className="relative ">
               <FormField
@@ -77,6 +157,7 @@ const Home = () => {
                 placeholder="Enter a strong password"
                 id="password"
                 isRequired={true}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FontAwesomeIcon
                 className="cursor-pointer absolute top-12 right-8"
@@ -84,7 +165,7 @@ const Home = () => {
                 icon={showPassword ? faEyeSlash : faEye}
               />
             </div>
-            <div className="relative ">
+            <div className="relative">
               <FormField
                 label="Confirm Password"
                 inputType={showConfirmPassword ? "text" : "password"}
@@ -92,6 +173,7 @@ const Home = () => {
                 placeholder="Re-enter your password"
                 id="confirmPassword"
                 isRequired={true}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <FontAwesomeIcon
                 className="cursor-pointer absolute top-12 right-8"
@@ -105,6 +187,7 @@ const Home = () => {
               iconName={faUserAstronaut}
               id="avatar"
               isFileInput={true}
+              onChange={(e) => uploadAvatar(e.target.files[0])}
             />
           </>
         )}
@@ -117,6 +200,7 @@ const Home = () => {
               placeholder="wit@example.com"
               id="email"
               isRequired={true}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <div className="relative ">
               <FormField
@@ -126,6 +210,7 @@ const Home = () => {
                 placeholder="Enter your password"
                 id="password"
                 isRequired={true}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FontAwesomeIcon
                 className="cursor-pointer absolute top-12 right-8"
@@ -136,20 +221,27 @@ const Home = () => {
           </>
         )}
         <div className="flex flex-col items-center w-full mt-8 gap-2">
-          <input
+          <Button
             type="submit"
-            value={isLogin ? "Login" : "Sign-Up"}
-            className="h-10 bg-[#E9705A] w-3/5 rounded-lg font-extrabold text-lg"
+            styles="bg-[#E9705A]"
+            title={isLogin ? "Login" : "Sign-Up"}
+            isLoading={isLoading}
           />
           {isLogin && (
-            <input
-              type="submit"
-              value="Guest Login"
-              className="h-10 bg-[#623965] w-3/5 rounded-lg font-extrabold text-lg"
+            <Button
+              type="button"
+              styles="bg-[#623965]"
+              title={"Use Guest Login"}
+              isLoading={isLoading}
+              onClick={() => {
+                setEmail("guest@mail.com");
+                setPassword("guest@12345");
+              }}
             />
           )}
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

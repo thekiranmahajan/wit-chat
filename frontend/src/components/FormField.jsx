@@ -9,6 +9,7 @@ const FormField = ({
   placeholder,
   isRequired,
   isFileInput,
+  onChange,
 }) => {
   return (
     <div className="px-4 mt-2 flex flex-col gap-1 ">
@@ -27,6 +28,8 @@ const FormField = ({
           placeholder={placeholder}
           id={id}
           required={isRequired}
+          onChange={onChange}
+          accept={isFileInput ? "image/*" : ""}
         />
       </div>
     </div>
