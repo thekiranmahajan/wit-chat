@@ -187,7 +187,7 @@ const Home = () => {
       />
       <form
         onSubmit={!isLogin ? handleSignUp : handleLogin}
-        className="mt-10  bg-[#0C1C30] max-w-[500px] w-3/4 sm:w-2/3 p-5 flex flex-col rounded-2xl pb-4 font-Marvel select-none"
+        className="mt-10  bg-[#0C1C30] max-w-[500px] w-11/12 sm:w-2/3 p-5 flex flex-col rounded-2xl pb-4 font-Marvel select-none"
       >
         <div className="w-full flex items-center justify-around gap-1 mb-4 sm:mb-1">
           <button

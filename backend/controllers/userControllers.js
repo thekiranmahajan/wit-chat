@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../config/generateToken.js";
 
-export const signup = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, avatar } = req.body;
   if (!name || !email || !password) {
     res.status(400);
@@ -34,7 +34,7 @@ export const signup = asyncHandler(async (req, res) => {
   }
 });
 
-export const login = asyncHandler(async (req, res) => {
+export const authenticateUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
@@ -52,7 +52,7 @@ export const login = asyncHandler(async (req, res) => {
   }
 });
 
-export const allUsers = asyncHandler(async (req, res) => {
+export const getAllUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
         $or: [
