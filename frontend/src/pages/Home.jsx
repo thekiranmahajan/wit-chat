@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { logo } from "../assets";
 import { FormField, Button } from "../components";
 import {
@@ -29,7 +29,7 @@ const Home = () => {
 
   const [cloudName, setCloudName] = useState(null);
   const [uploadPreset, setUploadPreset] = useState(null);
-
+  const avatarInputRef = useRef(null);
   const fetchEnv = async () => {
     try {
       const { data } = await axios.get("/api/env");
@@ -44,7 +44,8 @@ const Home = () => {
     fetchEnv();
   }, []);
 
-  const uploadAvatar = async (file) => {
+  const uploadAvatar = async (e) => {
+    const file = e.target.files[0];
     if (!file) {
       toast.warn("Please select an avatar.", {
         theme: "dark",
@@ -86,6 +87,7 @@ const Home = () => {
       toast.warn("Please select an image file.", {
         theme: "dark",
       });
+      e.target.value = "";
     }
   };
   const handleSignUp = async (e) => {
@@ -265,7 +267,7 @@ const Home = () => {
               iconName={faUserAstronaut}
               id="avatar"
               isFileInput={true}
-              onChange={(e) => uploadAvatar(e.target.files[0])}
+              onChange={(e) => uploadAvatar(e)}
             />
           </>
         )}
