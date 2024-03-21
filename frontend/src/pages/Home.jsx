@@ -10,11 +10,10 @@ import {
   faUserAstronaut,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Home = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
@@ -78,8 +77,17 @@ const Home = () => {
         );
 
         const { secure_url } = response.data;
-        console.log("Image uploaded successfully:", secure_url);
         setAvatar(secure_url);
+        toast.success("Avatar uploaded successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       } catch (error) {
         console.error("Upload failed:", error);
         toast.error("Upload failed. Please try again.", {
@@ -156,6 +164,9 @@ const Home = () => {
         },
         config
       );
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setIsLoading(false);
       toast.success("User registration is successful!", {
         position: "top-right",
         autoClose: 5000,
@@ -166,9 +177,6 @@ const Home = () => {
         progress: undefined,
         theme: "dark",
       });
-      console.log(data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setIsLoading(false);
       navigate("/chat");
     } catch (error) {
       toast.error(`${error.response.data.message}`, {
@@ -217,6 +225,9 @@ const Home = () => {
         },
         config
       );
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setIsLoading(false);
       toast.success("User Logged In successful!", {
         position: "top-right",
         autoClose: 5000,
@@ -227,9 +238,6 @@ const Home = () => {
         progress: undefined,
         theme: "dark",
       });
-
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setIsLoading(false);
       navigate("/chat");
     } catch (error) {
       toast.error(`${error.response.data.message}`, {
@@ -388,7 +396,6 @@ const Home = () => {
           )}
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 };
