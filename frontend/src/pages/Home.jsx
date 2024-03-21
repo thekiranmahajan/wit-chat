@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { logo } from "../assets";
 import { FormField, Button } from "../components";
 import {
@@ -19,18 +19,34 @@ const Home = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
-  const [avatarURL, setAvatarURL] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const uploadAvatar = async (avatar) => {
-    console.log(avatar);
-    if (!avatar) {
+  const [cloudName, setCloudName] = useState(null);
+  const [uploadPreset, setUploadPreset] = useState(null);
+
+  const fetchEnv = async () => {
+    try {
+      const { data } = await axios.get("/api/env");
+      setUploadPreset(data.UPLOAD_PRESET);
+      setCloudName(data.CLOUD_NAME);
+    } catch (error) {
+      console.error("There was a problem fetching the env:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchEnv();
+  }, []);
+
+  const uploadAvatar = async (file) => {
+    if (!file) {
       toast.warn("Please select an avatar.", {
         position: "top-right",
         autoClose: 5000,
@@ -43,17 +59,16 @@ const Home = () => {
       });
       return;
     }
-    if (avatar.type === "image/jpeg" || avatar.type === "image/png") {
+    if (file.type === "image/jpeg" || file.type === "image/png") {
       setIsLoading(true);
       const formData = new FormData();
-      formData.append("file", avatar);
-      formData.append("upload_preset", "image_preset");
-      formData.append("cloud_name", "ray69wit");
-      console.log(formData);
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
+      formData.append("cloud_name", cloudName);
 
       try {
         const response = await axios.post(
-          "https://api.cloudinary.com/v1_1/ray69wit/image/upload",
+          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
           formData,
           {
             headers: {
@@ -64,7 +79,7 @@ const Home = () => {
 
         const { secure_url } = response.data;
         console.log("Image uploaded successfully:", secure_url);
-        setAvatarURL(secure_url);
+        setAvatar(secure_url);
       } catch (error) {
         console.error("Upload failed:", error);
         toast.error("Upload failed. Please try again.", {
@@ -93,7 +108,7 @@ const Home = () => {
       });
     }
   };
-  const handleFormSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     if (!name || !email || !password || !confirmPassword) {
@@ -137,11 +152,72 @@ const Home = () => {
           name,
           email,
           password,
-          avatarURL,
+          avatar,
         },
         config
       );
       toast.success("User registration is successful!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      console.log(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setIsLoading(false);
+      navigate("/chat");
+    } catch (error) {
+      toast.error(`${error.response.data.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    if (!email || !password) {
+      toast.warn("Please fill required fields", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "/api/user/login",
+        {
+          email,
+          password,
+        },
+        config
+      );
+      toast.success("User Logged In successful!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -177,7 +253,7 @@ const Home = () => {
         alt="logo"
       />
       <form
-        onSubmit={handleFormSubmit}
+        onSubmit={!isLogin ? handleSignUp : handleLogin}
         className="mt-10  bg-[#0C1C30] max-w-[500px] w-3/4 sm:w-2/3 p-5 flex flex-col rounded-2xl pb-4 font-Marvel select-none"
       >
         <div className="w-full flex items-center justify-around gap-1 mb-4 sm:mb-1">
