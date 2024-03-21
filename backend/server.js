@@ -14,7 +14,13 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("API initiated!");
 });
-
+app.get("/api/env", (req, res) => {
+  const safeEnv = {
+    CLOUD_NAME: process.env.REACT_APP_CLOUD_NAME,
+    UPLOAD_PRESET: process.env.REACT_APP_UPLOAD_PRESET,
+  };
+  res.json(safeEnv);
+});
 app.use("/api/user", userRoutes);
 app.use(notFound);
 app.use(errorHandler);
