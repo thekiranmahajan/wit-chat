@@ -47,13 +47,6 @@ const Home = () => {
   const uploadAvatar = async (file) => {
     if (!file) {
       toast.warn("Please select an avatar.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       return;
@@ -79,25 +72,11 @@ const Home = () => {
         const { secure_url } = response.data;
         setAvatar(secure_url);
         toast.success("Avatar uploaded successfully!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           theme: "dark",
         });
       } catch (error) {
         console.error("Upload failed:", error);
         toast.error("Upload failed. Please try again.", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           theme: "dark",
         });
       } finally {
@@ -105,13 +84,6 @@ const Home = () => {
       }
     } else {
       toast.warn("Please select an image file.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
     }
@@ -121,13 +93,6 @@ const Home = () => {
     setIsLoading(true);
     if (!name || !email || !password || !confirmPassword) {
       toast.warn("Please fill required fields", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       setIsLoading(false);
@@ -135,13 +100,6 @@ const Home = () => {
     }
     if (password !== confirmPassword) {
       toast.warn("Passwords did not matched", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       setIsLoading(false);
@@ -168,25 +126,11 @@ const Home = () => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       setIsLoading(false);
       toast.success("User registration is successful!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       navigate("/chat");
     } catch (error) {
       toast.error(`${error.response.data.message}`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       setIsLoading(false);
@@ -198,13 +142,6 @@ const Home = () => {
     setIsLoading(true);
     if (!email || !password) {
       toast.warn("Please fill required fields", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       setIsLoading(false);
@@ -229,25 +166,11 @@ const Home = () => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       setIsLoading(false);
       toast.success("User Logged In successful!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       navigate("/chat");
     } catch (error) {
       toast.error(`${error.response.data.message}`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
       setIsLoading(false);
@@ -356,6 +279,7 @@ const Home = () => {
               id="email"
               isRequired={true}
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
             <div className="relative ">
               <FormField
@@ -366,6 +290,7 @@ const Home = () => {
                 id="password"
                 isRequired={true}
                 onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
               <FontAwesomeIcon
                 className="cursor-pointer absolute top-12 right-8"
