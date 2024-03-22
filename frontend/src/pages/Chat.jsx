@@ -1,24 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { ChatState } from "../context/ChatProvider";
 
 const Chat = () => {
-  // const [chats, setChats] = useState([]);
-  // const fetchChats = async () => {
-  //   try {
-  //     const { data } = await axios.get("/api/chat");
-  //     setChats(data);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error("There was a problem fetching the chats:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchChats();
-  // }, []);
-
+  const { user } = ChatState();
   return (
-    <div className="text-2xl flex items-center justify-center flex-col bg-fuchsia-600">
+    <div className=" h-screen w-full text-2xl flex items-center justify-center flex-col">
       CHAT PAGE
     </div>
   );

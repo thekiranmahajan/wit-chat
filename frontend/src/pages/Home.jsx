@@ -24,11 +24,10 @@ const Home = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [avatar, setAvatar] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
-
   const [cloudName, setCloudName] = useState(null);
   const [uploadPreset, setUploadPreset] = useState(null);
+  const navigate = useNavigate();
+
   const fetchEnv = async () => {
     try {
       const { data } = await axios.get("/api/env");
@@ -45,7 +44,7 @@ const Home = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    if (user) navigate("/chat");
+    // if (user) navigate("/chat");
   }, [navigate]);
 
   const uploadAvatar = async (e) => {
@@ -183,35 +182,37 @@ const Home = () => {
     }
   };
   return (
-    <div className="bg-[url('./assets/background.svg')] bg-center bg-no-repeat bg-cover min-h-screen w-full text-white flex flex-col items-center ">
+    <div className="w-full h-full flex flex-col items-center ">
       <img
-        className="h-24 w-24 rounded-2xl mt-10 sm:mt-8"
+        className="h-24 w-24 rounded-2xl mt-5 sm:mt-8"
         src={logo}
         alt="logo"
       />
       <form
         onSubmit={!isLogin ? handleSignUp : handleLogin}
-        className="mt-10  bg-[#0C1C30] max-w-[500px] w-11/12 sm:w-2/3 p-5 flex flex-col rounded-2xl pb-4 font-Marvel select-none"
+        className="mt-7 sm:mt-10  bg-[#0021332c] max-w-[500px] w-11/12 sm:w-2/3 p-5 flex flex-col rounded-2xl pb-4 font-Marvel select-none shadow-xl backdrop-blur-lg"
       >
-        <div className="w-full flex items-center justify-around gap-1 mb-4 sm:mb-1">
-          <button
+        <div className="w-full flex items-center justify-around gap-2 mb-4 sm:mb-1">
+          <Button
             type="button"
+            title="Sign Up"
             onClick={() => setIsLogin(false)}
-            className={`font-extrabold text-2xl  text-center focus:bg-[#FA9845] focus:px-10 px-1 py-1 rounded-md transition-all duration-300 ${
-              isLogin ? "" : "bg-[#FA9845] px-10"
+            className={` text-2xl   focus:bg-[#00213333] focus:px-10 px-1 py-1 rounded-md transition-all duration-300  ${
+              isLogin
+                ? ""
+                : "bg-[#00213333] px-10 shadow-slate-700 shadow-inner"
             }`}
-          >
-            Sign Up
-          </button>
-          <button
+          />
+          <Button
             type="button"
+            title="Login"
             onClick={() => setIsLogin(true)}
-            className={`font-extrabold text-2xl text-center focus:bg-[#FA9845] focus:px-10 px-1 py-1 rounded-md transition-all duration-300 ${
-              isLogin ? "bg-[#FA9845] px-10" : ""
+            className={` text-2xl  focus:bg-[#00213333] focus:px-10 px-1 py-1 rounded-md transition-all duration-300 ${
+              isLogin
+                ? "bg-[#00213333] px-10 shadow-slate-700 shadow-inner"
+                : ""
             }`}
-          >
-            Login
-          </button>
+          />
         </div>
         {!isLogin && (
           <>
@@ -309,14 +310,14 @@ const Home = () => {
         <div className="flex flex-col items-center w-full mt-8 gap-2">
           <Button
             type="submit"
-            styles="bg-[#E9705A]"
+            className="bg-[#4A8B65]"
             title={isLogin ? "Login" : "Sign-Up"}
             isLoading={isLoading}
           />
           {isLogin && (
             <Button
               type="button"
-              styles="bg-[#623965]"
+              className="bg-[#B8B86A]"
               title={"Use Guest Login"}
               isLoading={isLoading}
               onClick={() => {
