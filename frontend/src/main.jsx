@@ -3,16 +3,15 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import { Chat, Home } from "./pages";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ChatProvider } from "./context/ChatProvider";
+
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "chat", element: <Chat /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <ChatProvider>
     <RouterProvider router={router} />
-    <ToastContainer />
-  </React.StrictMode>
+  </ChatProvider>
 );

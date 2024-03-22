@@ -29,7 +29,6 @@ const Home = () => {
 
   const [cloudName, setCloudName] = useState(null);
   const [uploadPreset, setUploadPreset] = useState(null);
-  const avatarInputRef = useRef(null);
   const fetchEnv = async () => {
     try {
       const { data } = await axios.get("/api/env");
@@ -43,6 +42,11 @@ const Home = () => {
   useEffect(() => {
     fetchEnv();
   }, []);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    if (user) navigate("/chat");
+  }, [navigate]);
 
   const uploadAvatar = async (e) => {
     const file = e.target.files[0];
