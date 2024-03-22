@@ -11,15 +11,23 @@ const FormField = ({
   isFileInput,
   onChange,
   value,
+  styles,
 }) => {
   return (
     <div className="px-4 mt-2 flex flex-col gap-1 ">
-      <label className="font-semibold" htmlFor={id}>
-        {label} {isRequired && <sup className="text-red-500 text-base">*</sup>}
-      </label>
+      {label && (
+        <label className="font-semibold" htmlFor={id}>
+          {label}
+          {isRequired && <sup className="text-red-500 text-base">*</sup>}
+        </label>
+      )}
 
-      <div className="h-10 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden">
-        <FontAwesomeIcon className="sm:text-xl text-lg" icon={iconName} />
+      <div
+        className={`h-10 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden ${styles}`}
+      >
+        {iconName && (
+          <FontAwesomeIcon className="sm:text-xl text-lg" icon={iconName} />
+        )}
         <input
           className={`bg-transparent outline-none border-none w-full p-4 truncate placeholder:text-sm ${
             isFileInput &&

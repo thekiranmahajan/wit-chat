@@ -44,7 +44,7 @@ const Home = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    // if (user) navigate("/chat");
+    if (user) navigate("/chat");
   }, [navigate]);
 
   const uploadAvatar = async (e) => {
@@ -197,7 +197,7 @@ const Home = () => {
             type="button"
             title="Sign Up"
             onClick={() => setIsLogin(false)}
-            className={` text-2xl   focus:bg-[#00213333] focus:px-10 px-1 py-1 rounded-md transition-all duration-300  ${
+            styles={` text-2xl   focus:bg-[#00213333] focus:px-10 px-1 py-1 rounded-md transition-all duration-300  ${
               isLogin
                 ? ""
                 : "bg-[#00213333] px-10 shadow-slate-700 shadow-inner"
@@ -207,7 +207,7 @@ const Home = () => {
             type="button"
             title="Login"
             onClick={() => setIsLogin(true)}
-            className={` text-2xl  focus:bg-[#00213333] focus:px-10 px-1 py-1 rounded-md transition-all duration-300 ${
+            styles={` text-2xl  focus:bg-[#00213333] focus:px-10 px-1 py-1 rounded-md transition-all duration-300 ${
               isLogin
                 ? "bg-[#00213333] px-10 shadow-slate-700 shadow-inner"
                 : ""
@@ -310,14 +310,14 @@ const Home = () => {
         <div className="flex flex-col items-center w-full mt-8 gap-2">
           <Button
             type="submit"
-            className="bg-[#4A8B65]"
+            styles="bg-[#4A8B65]"
             title={isLogin ? "Login" : "Sign-Up"}
             isLoading={isLoading}
           />
           {isLogin && (
             <Button
               type="button"
-              className="bg-[#B8B86A]"
+              styles="bg-[#B8B86A]"
               title={"Use Guest Login"}
               isLoading={isLoading}
               onClick={() => {
