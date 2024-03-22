@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { ChatState } from "../context/ChatProvider";
+import { SideSearchDrawer, NavBar } from "../components";
 
 const Chat = () => {
   const { user } = ChatState();
   return (
-    <div className=" h-screen w-full text-2xl flex items-center justify-center flex-col">
-      CHAT PAGE
+    <div className=" h-screen w-full flex font-Marvel">
+      <NavBar />
+      {user && <SideSearchDrawer />}
     </div>
   );
 };
