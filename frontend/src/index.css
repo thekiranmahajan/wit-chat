@@ -3,3 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .blurEffect {
+    @apply bg-[#0021332c] backdrop-blur-md;
+  }
+}
