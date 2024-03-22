@@ -1,12 +1,12 @@
 import express from "express";
 import authenticateRequest from "../middleware/authMiddleware.js";
-import { accessChat } from "../controllers/chatControllers.js";
+import { accessChat, fetchChats } from "../controllers/chatControllers.js";
 
 const router = express.Router();
 
 router.route("/").post(authenticateRequest, accessChat);
 
-// router.route("/").get(authenticateRequest, fetchChats);
+router.route("/").get(authenticateRequest, fetchChats);
 
 // router.route("/create-group").post(authenticateRequest, createGroup);
 
