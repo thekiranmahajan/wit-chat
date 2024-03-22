@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Chat from "../models/chatModel.js";
 import User from "../models/userModel.js";
+import { populate } from "dotenv";
 
 export const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;
@@ -96,5 +97,22 @@ export const createGroup = asyncHandler(async (req, res) => {
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
+  }
+});
+
+export const renameGroup = asyncHandler(async (req, res) => {
+  const { chatId, chatName } = req.body;
+  const updatedChat = await Chat.findByIdAndUpdate(
+    chatId,
+    { chatName },
+    { new: true }
+  )
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+  if (!updatedChat) {
+    res.status(400);
+    throw new Error("Chat not found");
+  } else {
+    res.json(updatedChat);
   }
 });

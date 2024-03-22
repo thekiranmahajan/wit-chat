@@ -4,6 +4,7 @@ import {
   accessChat,
   createGroup,
   fetchChats,
+  renameGroup,
 } from "../controllers/chatControllers.js";
 
 const router = express.Router();
@@ -14,7 +15,7 @@ router.route("/").get(authenticateRequest, fetchChats);
 
 router.route("/create-group").post(authenticateRequest, createGroup);
 
-// router.route("/rename-group").put(authenticateRequest, renameGroup);
+router.route("/rename-group").put(authenticateRequest, renameGroup);
 
 // router.route("/remove-member").post(authenticateRequest, removeFromGroup);
 
