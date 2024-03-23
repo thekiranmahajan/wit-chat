@@ -7,7 +7,7 @@ const Chat = () => {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   return (
     <div className=" h-screen w-full flex font-Marvel">
-      <NavBar setIsSearchClicked={setIsSearchClicked} />
+      <NavBar setIsSearchClicked={setIsSearchClicked} user={user} />
       <SideSearchDrawer
         isSearchClicked={isSearchClicked}
         setIsSearchClicked={setIsSearchClicked}
