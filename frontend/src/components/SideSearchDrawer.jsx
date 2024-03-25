@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import SearchUserShimmer from "./SearchUserShimmer";
 import SearchUser from "./SearchUser";
-const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked, user }) => {
+const SideSearchDrawer = ({ isSidebar, setIsSidebar, user }) => {
   const [searchText, setSearchText] = useState("");
   const [searchedUsers, setSearchedUsers] = useState(null);
   const [isLoading, setIsloading] = useState(false);
@@ -45,7 +45,7 @@ const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked, user }) => {
   return (
     <div
       className={`blurEffect h-full  w-11/12 max-w-sm flex items-center flex-col p-5 z-10 absolute transition-all duration-300 ${
-        isSearchClicked
+        isSidebar
           ? "opacity-100 translate-x-0 transition-all duration-500 ease-in-out "
           : " opacity-0 -translate-x-full transition-all duration-300"
       }`}
@@ -53,7 +53,7 @@ const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked, user }) => {
       <div className="flex items-center justify-between w-full mb-4 sm:pl-5 pl-3">
         <h2 className="font-extrabold text-xl ">Search a Friend</h2>
         <FontAwesomeIcon
-          onClick={() => setIsSearchClicked((prev) => !prev)}
+          onClick={() => setIsSidebar(false)}
           className="text-xl cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300"
           icon={faArrowLeft}
         />

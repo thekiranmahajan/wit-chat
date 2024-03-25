@@ -5,28 +5,25 @@ import ProfilePopUp from "../components/ProfilePopUp";
 
 const Chat = () => {
   const { user } = ChatState();
-  const [isSearchClicked, setIsSearchClicked] = useState(false);
-  const [profilePopUp, setProfilePopUp] = useState(false);
+  const [isSidebar, setIsSidebar] = useState(false);
+  const [isPopUp, setIsPopUp] = useState(false);
 
   return (
     user && (
       <div className="relative h-screen w-full flex font-Marvel">
         <NavBar
-          setIsSearchClicked={setIsSearchClicked}
+          setIsSidebar={setIsSidebar}
+          setIsPopUp={setIsPopUp}
+          isSidebar={isSidebar}
           user={user}
-          setProfilePopUp={setProfilePopUp}
         />
         <SideSearchDrawer
-          isSearchClicked={isSearchClicked}
-          setIsSearchClicked={setIsSearchClicked}
+          isSidebar={isSidebar}
+          setIsSidebar={setIsSidebar}
           user={user}
         />
 
-        <ProfilePopUp
-          profilePopUp={profilePopUp}
-          setProfilePopUp={setProfilePopUp}
-          user={user}
-        />
+        <ProfilePopUp isPopUp={isPopUp} setIsPopUp={setIsPopUp} user={user} />
       </div>
     )
   );

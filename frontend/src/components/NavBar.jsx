@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NavBar = ({ setIsSearchClicked, user, setProfilePopUp }) => {
+const NavBar = ({ setIsSidebar, isSidebar, setIsPopUp, user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -15,10 +15,20 @@ const NavBar = ({ setIsSearchClicked, user, setProfilePopUp }) => {
     localStorage.removeItem("userInfo");
     navigate("/");
   };
+
+  const handleMenuOpen = () => {
+    setIsMenuOpen((prev) => !prev);
+    if (isSidebar) {
+      setIsSidebar(false);
+    }
+  };
   return (
     <div className="relative blurEffect w-full h-16 flex items-center justify-between flex-wrap sm:px-8 px-4">
       <div
-        onClick={() => setIsSearchClicked((prev) => !prev)}
+        onClick={() => {
+          setIsSidebar(true);
+          setIsMenuOpen(false);
+        }}
         className="bg-[#002133] h-12 rounded-md w-12 sm:w-40 flex p-4 items-center text-xl gap-3 cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300 font-bold truncate"
         title="Search a user"
       >
@@ -32,7 +42,7 @@ const NavBar = ({ setIsSearchClicked, user, setProfilePopUp }) => {
         </div>
         <div>
           <div
-            onClick={() => setIsMenuOpen((prev) => !prev)}
+            onClick={handleMenuOpen}
             className="relative h-12 w-20 flex items-center justify-center p-2 hover:backdrop-brightness-75 bg-[#002133] rounded-md gap-2 cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300"
           >
             <img
@@ -58,7 +68,7 @@ const NavBar = ({ setIsSearchClicked, user, setProfilePopUp }) => {
           >
             <h3
               onClick={() => {
-                setProfilePopUp(true);
+                setIsPopUp(true);
                 setIsMenuOpen(false);
               }}
               className="cursor-pointer w-full h-8 text-center hover:bg-[#006761] focus:bg-[#006761] rounded-sm flex items-center justify-center"
