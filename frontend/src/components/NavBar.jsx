@@ -20,6 +20,7 @@ const NavBar = ({ setIsSearchClicked, user, setProfilePopUp }) => {
       <div
         onClick={() => setIsSearchClicked((prev) => !prev)}
         className="bg-[#002133] h-12 rounded-md w-12 sm:w-40 flex p-4 items-center text-xl gap-3 cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300 font-bold truncate"
+        title="Search a user"
       >
         <FontAwesomeIcon icon={faMagnifyingGlass} />
         Start a Chat

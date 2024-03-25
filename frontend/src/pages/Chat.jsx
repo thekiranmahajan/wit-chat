@@ -19,6 +19,7 @@ const Chat = () => {
         <SideSearchDrawer
           isSearchClicked={isSearchClicked}
           setIsSearchClicked={setIsSearchClicked}
+          user={user}
         />
 
         <ProfilePopUp
