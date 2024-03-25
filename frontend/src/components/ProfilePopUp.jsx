@@ -1,7 +1,40 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-const ProfilePopUp = () => {
-  return <div>ProfilePopUp</div>;
+const ProfilePopUp = ({ user, setProfilePopUp, profilePopUp }) => {
+  const handleOutsideClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setProfilePopUp(false);
+    }
+  };
+  return (
+    <div
+      onClick={handleOutsideClick}
+      className={`blurEffect z-10 absolute flex h-full w-full items-center justify-center ${
+        profilePopUp
+          ? "opacity-100 translate-y-0 transition-all duration-500 ease-in-out "
+          : " opacity-0 -translate-y-full transition-all duration-300"
+      }
+      }`}
+    >
+      <div
+        className={`z-40 relative flex flex-col items-center rounded-lg h-1/2 max-w-sm w-11/12  bg-[#002133] py-5 `}
+      >
+        <FontAwesomeIcon
+          onClick={() => setProfilePopUp(false)}
+          className="absolute right-5 text-2xl cursor-pointer  active:ring  px-3 py-2 rounded-lg hover:scale-105 hover:rotate-180 transition-transform active:scale-95 duration-300"
+          icon={faXmark}
+        />
+
+        <div className="mt-10 h-32 w-32 rounded-full overflow-hidden">
+          <img className="object-contain" src={user?.avatar} alt="avatar" />
+        </div>
+        <h2 className="text-2xl font-bold mt-1">{user?.name}</h2>
+        <p className="text-slate-400 mt-2 text-lg">Email: {user?.email}</p>
+      </div>
+    </div>
+  );
 };
 
 export default ProfilePopUp;

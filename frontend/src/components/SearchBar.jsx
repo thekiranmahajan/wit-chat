@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 const SearchBar = ({ placeholder, onClick, searchText, setSearchText }) => {
-    
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();

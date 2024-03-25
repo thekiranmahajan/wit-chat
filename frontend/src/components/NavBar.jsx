@@ -7,15 +7,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NavBar = ({ isSearchClicked, setIsSearchClicked, user }) => {
+const NavBar = ({ setIsSearchClicked, user, setProfilePopUp }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navigate = useNavigate();
   const logoutUser = () => {
     localStorage.removeItem("userInfo");
     navigate("/");
   };
   return (
-    <div className="blurEffect w-full h-16 flex items-center justify-between flex-wrap sm:px-8 px-4">
+    <div className="relative blurEffect w-full h-16 flex items-center justify-between flex-wrap sm:px-8 px-4">
       <div
         onClick={() => setIsSearchClicked((prev) => !prev)}
         className="bg-[#002133] h-12 rounded-md w-12 sm:w-40 flex p-4 items-center text-xl gap-3 cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300 font-bold truncate"
@@ -48,14 +49,25 @@ const NavBar = ({ isSearchClicked, setIsSearchClicked, user }) => {
             />
           </div>
           <div
-            className={`absolute top-16 rounded-md  w-20 h-20 bg-[#002133] flex items-center justify-around flex-col ${
+            className={`absolute top-16 rounded-md  w-20 h-20 bg-[#002133] flex items-center justify-around flex-col py-2 ${
               isMenuOpen
                 ? "opacity-100 translate-y-0 transition-all duration-500 ease-in-out "
                 : " opacity-0 translate-y-full transition-all duration-300"
             }`}
           >
-            <h3 className="cursor-pointer">Profile</h3>
-            <h3 onClick={logoutUser} className="cursor-pointer">
+            <h3
+              onClick={() => {
+                setProfilePopUp(true);
+                setIsMenuOpen(false);
+              }}
+              className="cursor-pointer w-full h-8 text-center hover:bg-[#006761] focus:bg-[#006761] rounded-sm flex items-center justify-center"
+            >
+              Profile
+            </h3>
+            <h3
+              onClick={logoutUser}
+              className="cursor-pointer w-full h-8 text-center hover:bg-[#006761] focus:bg-[#006761] rounded-sm flex items-center justify-center"
+            >
               Logout
             </h3>
           </div>
