@@ -2,9 +2,39 @@ import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked }) => {
+import { toast } from "react-toastify";
+import axios from "axios";
+const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked, user }) => {
   const [searchText, setSearchText] = useState("");
+  const [searchedUsers, setSearchedUsers] = useState("");
+
+  const handleSearch = async () => {
+    console.log(searchText);
+    if (!searchText) {
+      toast.warn("Please add name or email to search", {
+        theme: "dark",
+      });
+      return;
+    }
+
+    try {
+      const config = {
+        headers: { authorization: `Bearer ${user?.token}` },
+      };
+
+      const { data } = await axios.get(
+        `/api/user?search=${searchText}`,
+        config
+      );
+      console.log(data);
+      setSearchedUsers(data);
+    } catch (error) {
+      toast.error("Something went wrong while search", {
+        theme: "dark",
+      });
+    }
+  };
+
   return (
     <div
       className={`blurEffect h-full sm:w-96 w-4/5  flex items-center flex-col p-5 z-10 absolute transition-all duration-300 ${
@@ -25,6 +55,7 @@ const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked }) => {
         placeholder="Search by Name or Email"
         searchText={searchText}
         setSearchText={setSearchText}
+        handleSearch={handleSearch}
       />
     </div>
   );
