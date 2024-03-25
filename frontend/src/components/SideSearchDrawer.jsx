@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faL } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import axios from "axios";
+import SearchUserShimmer from "./SearchUserShimmer";
+import SearchUser from "./SearchUser";
 const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked, user }) => {
   const [searchText, setSearchText] = useState("");
-  const [searchedUsers, setSearchedUsers] = useState("");
+  const [searchedUsers, setSearchedUsers] = useState(null);
+  const [isLoading, setIsloading] = useState(false);
 
   const handleSearch = async () => {
     console.log(searchText);
+    setIsloading(true);
     if (!searchText) {
       toast.warn("Please add name or email to search", {
         theme: "dark",
       });
+      setIsloading(false);
       return;
     }
 
@@ -28,16 +33,18 @@ const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked, user }) => {
       );
       console.log(data);
       setSearchedUsers(data);
+      setIsloading(false);
     } catch (error) {
       toast.error("Something went wrong while search", {
         theme: "dark",
       });
+      setIsloading(false);
     }
   };
 
   return (
     <div
-      className={`blurEffect h-full sm:w-96 w-4/5  flex items-center flex-col p-5 z-10 absolute transition-all duration-300 ${
+      className={`blurEffect h-full  w-11/12 max-w-sm flex items-center flex-col p-5 z-10 absolute transition-all duration-300 ${
         isSearchClicked
           ? "opacity-100 translate-x-0 transition-all duration-500 ease-in-out "
           : " opacity-0 -translate-x-full transition-all duration-300"
@@ -57,6 +64,20 @@ const SideSearchDrawer = ({ isSearchClicked, setIsSearchClicked, user }) => {
         setSearchText={setSearchText}
         handleSearch={handleSearch}
       />
+      <div className="w-full h-full overflow-y-scroll mt-4 scrollbar pr-3 pb-4">
+        <p>Results: </p>
+        {isLoading ? (
+          <SearchUserShimmer />
+        ) : (
+          searchedUsers && (
+            <>
+              {searchedUsers.map((searchedUser) => (
+                <SearchUser key={searchedUser._id} {...searchedUser} />
+              ))}
+            </>
+          )
+        )}
+      </div>
     </div>
   );
 };
