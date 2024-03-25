@@ -9,3 +9,24 @@
     @apply bg-[#0021332c] backdrop-blur-md;
   }
 }
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 20vh;
+    background: #002133;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 20vh;
+    background: #004351;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #4a8b65;
+  }
+}
