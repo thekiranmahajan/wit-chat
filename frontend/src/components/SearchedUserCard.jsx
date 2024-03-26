@@ -1,6 +1,12 @@
 import React from "react";
-
-const SearchedUserCard = ({ name, email, avatar, handleAccessChat }) => {
+import { loader } from "../assets";
+const SearchedUserCard = ({
+  name,
+  email,
+  avatar,
+  handleAccessChat,
+  isChatLoading,
+}) => {
   return (
     <div
       onClick={handleAccessChat}
@@ -13,11 +19,14 @@ const SearchedUserCard = ({ name, email, avatar, handleAccessChat }) => {
           alt={name}
         />
       </div>
-      <div className="leading-5 truncate h-12 w-3/4 flex flex-col justify-center py-1">
+      <div className="relative leading-5 truncate h-12 w-3/4 flex flex-col justify-center py-1">
         <h4 className="text-lg font-bold text-gray-200 truncate">{name}</h4>
         <p className="text-sm text-gray-300 truncate">
           <span className="font-extrabold text-gray-200">Email: </span> {email}
         </p>
+        {isChatLoading && (
+          <img className="absolute right-0 h-8 w-8" src={loader} alt="loader" />
+        )}
       </div>
     </div>
   );

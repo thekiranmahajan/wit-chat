@@ -12,7 +12,8 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
   const [searchText, setSearchText] = useState("");
   const [searchedUsers, setSearchedUsers] = useState(null);
   const [isUsersLoading, setIsUsersloading] = useState(false);
-  const [isLoadingChat, setIsloadingChat] = useState(false);
+  const [isChatLoading, setIsChatLoading] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   const handleSearch = async () => {
     console.log(searchText);
@@ -46,12 +47,14 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
   };
   const clearSearch = () => {
     setSearchText("");
-    setSearchedUsers([]);
+    setSearchedUsers(null);
+    selectedUserId(null);
   };
 
   const handleAccessChat = async (userId) => {
+    setSelectedUserId(userId);
     try {
-      setIsloadingChat(true);
+      setIsChatLoading(true);
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -60,14 +63,17 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
       };
 
       const { data } = await axios.post("/api/chat", { userId }, config);
-      setIsloadingChat(false);
+      if (!chats.find((chat) => chat._id)) setChats([data, ...chats]);
+
+      setIsChatLoading(false);
       setSelectedChat(data);
       setIsSidebar(false);
     } catch (error) {
       toast.error("Failed to add a chat", {
         theme: "dark",
       });
-      setIsloadingChat(false);
+      setSearchedUsers(null);
+      setIsChatLoading(false);
     }
   };
   return (
@@ -93,20 +99,29 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
         handleSearch={handleSearch}
         clearSearch={clearSearch}
       />
-      <div className="w-full h-full overflow-y-scroll overflow-x-hidden mt-4 no-scrollbar p-4 flex flex-col scroll-smooth">
-        <p className="text-sm ml-4 flex w-full">Results: </p>
+      <div className="w-full h-full overflow-y-scroll overflow-x-hidden mt-2 no-scrollbar p-4 flex flex-col scroll-smooth">
+        <p className="text-sm sm:text-base ml-4 flex w-full">Results: </p>
         {isUsersLoading ? (
           <UserSearchShimmer />
         ) : (
           searchedUsers && (
             <>
-              {searchedUsers.map((searchedUser) => (
-                <SearchedUserCard
-                  key={searchedUser._id}
-                  {...searchedUser}
-                  handleAccessChat={() => handleAccessChat(searchedUser._id)}
-                />
-              ))}
+              {searchedUsers.length === 0 && (
+                <p className="font-bold ml-4 mt-2">
+                  No Users found with given name or email.
+                </p>
+              )}
+              {searchedUsers.length !== 0 &&
+                searchedUsers.map((searchedUser) => (
+                  <SearchedUserCard
+                    key={searchedUser._id}
+                    {...searchedUser}
+                    handleAccessChat={() => handleAccessChat(searchedUser._id)}
+                    isChatLoading={
+                      isChatLoading && searchedUser._id === selectedUserId
+                    }
+                  />
+                ))}
             </>
           )
         )}
