@@ -1,9 +1,9 @@
 import React from "react";
 
-const UserSearchShimmer = () => {
+const UserSearchShimmer = ({ noOfTimes }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      {[...Array(12)].map((_, index) => (
+      {[...Array(noOfTimes)].map((_, index) => (
         <div
           key={index}
           className="bg-[#006761] mt-2 h-12 w-full rounded-md flex items-center p-3 gap-5 overflow-hidden cursor-pointer hover:scale-105 active:scale-95 transition-all animate-pulse"

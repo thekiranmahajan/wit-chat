@@ -102,7 +102,7 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
       <div className="w-full h-full overflow-y-scroll overflow-x-hidden mt-2 no-scrollbar p-4 flex flex-col scroll-smooth">
         <p className="text-sm sm:text-base ml-4 flex w-full">Results: </p>
         {isUsersLoading ? (
-          <UserSearchShimmer />
+          <UserSearchShimmer noOfTimes={12} />
         ) : (
           searchedUsers && (
             <div className="flex flex-col items-center justify-center w-full">
