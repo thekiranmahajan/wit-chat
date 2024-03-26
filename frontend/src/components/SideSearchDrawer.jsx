@@ -47,7 +47,7 @@ const SideSearchDrawer = ({ isSidebar, setIsSidebar, user }) => {
       className={`blurEffect h-full  w-11/12 max-w-sm flex items-center flex-col p-5 z-10 absolute transition-all duration-300 ${
         isSidebar
           ? "opacity-100 translate-x-0 transition-all duration-500 ease-in-out "
-          : " opacity-0 -translate-x-full transition-all duration-300"
+          : " opacity-0 -translate-x-full transition-all duration-500"
       }`}
     >
       <div className="flex items-center justify-between w-full mb-4 sm:pl-5 pl-3">

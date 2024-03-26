@@ -63,7 +63,7 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsPopUp, user }) => {
             className={`absolute top-16 rounded-md  w-20 h-20 bg-[#002133] flex items-center justify-around flex-col py-2 ${
               isMenuOpen
                 ? "opacity-100 translate-y-0 transition-all duration-500 ease-in-out "
-                : " opacity-0 translate-y-full transition-all duration-300"
+                : " opacity-0 translate-y-full transition-all duration-500"
             }`}
           >
             <h3

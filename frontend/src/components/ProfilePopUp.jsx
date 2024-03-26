@@ -14,12 +14,12 @@ const ProfilePopUp = ({ user, setIsPopUp, isPopUp }) => {
       className={`blurEffect z-10 absolute flex h-full w-full items-center justify-center ${
         isPopUp
           ? "opacity-100 translate-y-0 transition-all duration-500 ease-in-out "
-          : " opacity-0 -translate-y-full transition-all duration-300"
+          : " opacity-0 -translate-y-full transition-all duration-500"
       }
       }`}
     >
       <div
-        className={`z-40 relative flex flex-col items-center rounded-lg h-1/2 max-w-sm w-11/12  bg-[#002133] py-5 `}
+        className={`z-40 relative flex flex-col items-center rounded-lg h-2/5 max-w-sm w-11/12  bg-[#002133] py-5 `}
       >
         <FontAwesomeIcon
           onClick={() => setIsPopUp(false)}
