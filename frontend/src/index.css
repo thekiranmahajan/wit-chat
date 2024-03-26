@@ -11,22 +11,13 @@
 }
 
 @layer utilities {
-  .scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 20px;
+ 
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
-
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 20vh;
-    background: #002133;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 20vh;
-    background: #004351;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #4a8b65;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
