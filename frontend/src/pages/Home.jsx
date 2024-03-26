@@ -112,21 +112,19 @@ const Home = () => {
     }
 
     try {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+
+      if (avatar.trim() !== "") userData.avatar = avatar;
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
-      const { data } = await axios.post(
-        "/api/user",
-        {
-          name,
-          email,
-          password,
-          avatar,
-        },
-        config
-      );
+      const { data } = await axios.post("/api/user", userData, config);
 
       localStorage.setItem("userInfo", JSON.stringify(data));
       setIsLoading(false);
@@ -319,7 +317,6 @@ const Home = () => {
               type="button"
               styles="bg-[#B8B86A]"
               title={"Use Guest Login"}
-              isLoading={isLoading}
               onClick={() => {
                 setEmail("guest@mail.com");
                 setPassword("guest@12345");
