@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchUserShimmer = () => {
+const UserSearchShimmer = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full">
       {[...Array(12)].map((_, index) => (
@@ -19,4 +19,4 @@ const SearchUserShimmer = () => {
   );
 };
 
-export default SearchUserShimmer;
+export default UserSearchShimmer;

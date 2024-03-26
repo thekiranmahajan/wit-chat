@@ -1,5 +1,5 @@
 import { ChatState } from "../context/ChatProvider";
-import { SideSearchDrawer, NavBar } from "../components";
+import { UserSearchSideBar, NavBar } from "../components";
 import { useState } from "react";
 import ProfilePopUp from "../components/ProfilePopUp";
 
@@ -15,15 +15,10 @@ const Chat = () => {
           setIsSidebar={setIsSidebar}
           setIsPopUp={setIsPopUp}
           isSidebar={isSidebar}
-          user={user}
         />
-        <SideSearchDrawer
-          isSidebar={isSidebar}
-          setIsSidebar={setIsSidebar}
-          user={user}
-        />
+        <UserSearchSideBar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
 
-        <ProfilePopUp isPopUp={isPopUp} setIsPopUp={setIsPopUp} user={user} />
+        <ProfilePopUp isPopUp={isPopUp} setIsPopUp={setIsPopUp} />
       </div>
     )
   );
