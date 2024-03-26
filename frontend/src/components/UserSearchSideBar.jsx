@@ -105,7 +105,7 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
           <UserSearchShimmer />
         ) : (
           searchedUsers && (
-            <>
+            <div className="flex flex-col items-center justify-center w-full">
               {searchedUsers.length === 0 && (
                 <p className="font-bold ml-4 mt-2">
                   No Users found with given name or email.
@@ -122,7 +122,7 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
                     }
                   />
                 ))}
-            </>
+            </div>
           )
         )}
       </div>
