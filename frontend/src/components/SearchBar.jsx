@@ -17,7 +17,7 @@ const SearchBar = ({
   };
 
   return (
-    <div className="relative h-10 w-11/12 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden">
+    <div className="relative h-10 w-11/12 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden transition-all duration-500">
       <input
         placeholder={placeholder}
         className="bg-transparent outline-none border-none w-full py-1 px-2 truncate placeholder:text-sm"

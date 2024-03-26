@@ -1,8 +1,11 @@
 import React from "react";
 
-const SearchUser = ({ name, email, avatar }) => {
+const SearchedUserCard = ({ name, email, avatar, handleAccessChat }) => {
   return (
-    <div className="bg-[#006761] mt-2 h-12 w-full rounded-md flex items-center p-3 gap-5 overflow-hidden cursor-pointer">
+    <div
+      onClick={handleAccessChat}
+      className="bg-[#006761] mt-2 h-12 w-full rounded-md flex items-center p-3 gap-5 overflow-hidden cursor-pointer hover:scale-105 active:scale-95 transition-all"
+    >
       <div className="sm:h-10 sm:w-10 h-8 w-8 rounded-full overflow-hidden flex items-center justify-center">
         <img
           className="object-cover h-full w-full rounded-full"
@@ -20,4 +23,4 @@ const SearchUser = ({ name, email, avatar }) => {
   );
 };
 
-export default SearchUser;
+export default SearchedUserCard;

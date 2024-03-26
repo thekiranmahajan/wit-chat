@@ -6,8 +6,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChatState } from "../context/ChatProvider";
 
-const NavBar = ({ setIsSidebar, isSidebar, setIsPopUp, user }) => {
+const NavBar = ({ setIsSidebar, isSidebar, setIsPopUp }) => {
+  const { user } = ChatState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigate = useNavigate();

@@ -1,8 +1,10 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { ChatState } from "../context/ChatProvider";
 
-const ProfilePopUp = ({ user, setIsPopUp, isPopUp }) => {
+const ProfilePopUp = ({ setIsPopUp, isPopUp }) => {
+  const { user } = ChatState();
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
       setIsPopUp(false);
