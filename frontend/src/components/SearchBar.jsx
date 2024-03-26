@@ -7,15 +7,13 @@ const SearchBar = ({
   searchText,
   setSearchText,
   handleSearch,
+  clearSearch,
 }) => {
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSearch();
     }
-  };
-  const clearSearch = () => {
-    setSearchText("");
   };
 
   return (

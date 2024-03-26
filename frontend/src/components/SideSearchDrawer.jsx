@@ -41,7 +41,10 @@ const SideSearchDrawer = ({ isSidebar, setIsSidebar, user }) => {
       setIsloading(false);
     }
   };
-
+  const clearSearch = () => {
+    setSearchText("");
+    setSearchedUsers([]);
+  };
   return (
     <div
       className={`blurEffect h-full  w-11/12 max-w-sm flex items-center flex-col p-5 z-10 absolute transition-all duration-300 ${
@@ -63,6 +66,7 @@ const SideSearchDrawer = ({ isSidebar, setIsSidebar, user }) => {
         searchText={searchText}
         setSearchText={setSearchText}
         handleSearch={handleSearch}
+        clearSearch={clearSearch}
       />
       <div className="w-full h-full overflow-y-scroll mt-4 scrollbar pr-3 pb-4">
         <p>Results: </p>

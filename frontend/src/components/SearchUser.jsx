@@ -10,7 +10,7 @@ const SearchUser = ({ name, email, avatar }) => {
           alt={name}
         />
       </div>
-      <div className="leading-5 truncate w-3/4 py-10">
+      <div className="leading-5 truncate h-12 w-3/4 flex flex-col justify-center py-1">
         <h4 className="text-lg font-bold text-gray-200 truncate">{name}</h4>
         <p className="text-sm text-gray-300 truncate">
           <span className="font-extrabold text-gray-200">Email: </span> {email}
