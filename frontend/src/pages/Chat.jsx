@@ -1,15 +1,18 @@
 import { ChatState } from "../context/ChatProvider";
 import { UserSearchSideBar, NavBar } from "../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfilePopUp from "../components/ProfilePopUp";
 
 const Chat = () => {
-  const { user } = ChatState();
+  const { setUser, user } = ChatState();
   const [isSidebar, setIsSidebar] = useState(false);
   const [isPopUp, setIsPopUp] = useState(false);
-
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(userInfo);
+  }, []);
   return (
-    user && (
+    user !== null && (
       <div className="relative h-screen w-full flex font-Marvel">
         <NavBar
           setIsSidebar={setIsSidebar}

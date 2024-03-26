@@ -49,7 +49,7 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsPopUp }) => {
           >
             <img
               className="h-10 w-10 rounded-full object-contain"
-              src={user.avatar}
+              src={user?.avatar}
               alt="avatar"
             />
             <FontAwesomeIcon

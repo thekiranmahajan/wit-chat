@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
+  const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
-  const [chats, setChats] = useState(null);
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
