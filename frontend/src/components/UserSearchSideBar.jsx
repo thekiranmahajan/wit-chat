@@ -111,14 +111,14 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
                   No Users found with given name or email.
                 </p>
               )}
-              {searchedUsers.length !== 0 &&
-                searchedUsers.map((searchedUser) => (
+              {searchedUsers?.length !== 0 &&
+                searchedUsers?.map((searchedUser) => (
                   <SearchedUserCard
-                    key={searchedUser._id}
+                    key={searchedUser?._id}
                     {...searchedUser}
-                    handleAccessChat={() => handleAccessChat(searchedUser._id)}
+                    handleClick={() => handleAccessChat(searchedUser?._id)}
                     isChatLoading={
-                      isChatLoading && searchedUser._id === selectedUserId
+                      isChatLoading && searchedUser?._id === selectedUserId
                     }
                   />
                 ))}

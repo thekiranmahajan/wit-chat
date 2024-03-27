@@ -4,12 +4,12 @@ const SearchedUserCard = ({
   name,
   email,
   avatar,
-  handleAccessChat,
+  handleClick,
   isChatLoading,
 }) => {
   return (
     <div
-      onClick={handleAccessChat}
+      onClick={handleClick}
       className="bg-[#006761] mt-2 h-12 w-full rounded-md flex items-center p-3 gap-5 overflow-hidden cursor-pointer hover:scale-105 active:scale-95 transition-all"
     >
       <div className="sm:h-10 sm:w-10 h-8 w-8 rounded-full overflow-hidden flex items-center justify-center">

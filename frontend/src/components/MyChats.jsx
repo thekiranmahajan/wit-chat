@@ -5,7 +5,7 @@ import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import UserSearchShimmer from "./UserSearchShimmer";
 import { getSender } from "../constants/chatDataRetrieval";
-const MyChats = () => {
+const MyChats = ({ setIsGroupChatPopUp }) => {
   const [loggedUser, setLoggedUser] = useState();
 
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
@@ -24,7 +24,9 @@ const MyChats = () => {
       });
     }
   };
-  const HandleGroupChat = () => {};
+  const HandleGroupChat = () => {
+    setIsGroupChatPopUp(true);
+  };
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();

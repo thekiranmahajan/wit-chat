@@ -14,7 +14,7 @@ const FormField = ({
   styles,
 }) => {
   return (
-    <div className="px-4 mt-2 flex flex-col gap-1 ">
+    <div className={`px-4 mt-2 flex flex-col gap-1 ${styles}`}>
       {label && (
         <label className="font-semibold" htmlFor={id}>
           {label}
@@ -23,7 +23,7 @@ const FormField = ({
       )}
 
       <div
-        className={`h-10 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden ${styles}`}
+        className={`h-10 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden`}
       >
         {iconName && (
           <FontAwesomeIcon className="sm:text-xl text-lg" icon={iconName} />
