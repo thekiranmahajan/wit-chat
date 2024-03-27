@@ -5,13 +5,15 @@ import {
   ProfilePopUp,
   MyChats,
   ChatWindow,
+  GroupChatPopUp,
 } from "../components";
 import { useEffect, useState } from "react";
 
 const Chat = () => {
   const { setUser, user } = ChatState();
   const [isSidebar, setIsSidebar] = useState(false);
-  const [isPopUp, setIsPopUp] = useState(false);
+  const [isProfilePopUp, setIsProfilePopUp] = useState(false);
+  const [isGroupChatPopUp, setIsGroupChatPopUp] = useState(false);
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
@@ -21,14 +23,21 @@ const Chat = () => {
       <div className="relative h-screen w-full flex flex-col font-Marvel">
         <NavBar
           setIsSidebar={setIsSidebar}
-          setIsPopUp={setIsPopUp}
+          setIsProfilePopUp={setIsProfilePopUp}
           isSidebar={isSidebar}
         />
         <UserSearchSideBar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
-        <ProfilePopUp isPopUp={isPopUp} setIsPopUp={setIsPopUp} />
+        <ProfilePopUp
+          isProfilePopUp={isProfilePopUp}
+          setIsProfilePopUp={setIsProfilePopUp}
+        />
 
         <div className="w-full h-screen flex justify-between p-5">
-          <MyChats />
+          <MyChats setIsGroupChatPopUp={setIsGroupChatPopUp} />
+          <GroupChatPopUp
+            setIsGroupChatPopUp={setIsGroupChatPopUp}
+            isGroupChatPopUp={isGroupChatPopUp}
+          />
           <ChatWindow />
         </div>
       </div>

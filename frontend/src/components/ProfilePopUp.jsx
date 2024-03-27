@@ -3,18 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { ChatState } from "../context/ChatProvider";
 
-const ProfilePopUp = ({ setIsPopUp, isPopUp }) => {
+const ProfilePopUp = ({ setIsProfilePopUp, isProfilePopUp }) => {
   const { user } = ChatState();
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
-      setIsPopUp(false);
+      setIsProfilePopUp(false);
     }
   };
   return (
     <div
       onClick={handleOutsideClick}
       className={`blurEffect z-10 absolute flex h-full w-full items-center justify-center ${
-        isPopUp
+        isProfilePopUp
           ? "opacity-100 translate-y-0 transition-all duration-500 ease-in-out "
           : " opacity-0 -translate-y-full transition-all duration-500"
       }
@@ -24,7 +24,7 @@ const ProfilePopUp = ({ setIsPopUp, isPopUp }) => {
         className={`z-40 relative flex flex-col items-center rounded-lg h-2/5 max-w-sm w-11/12  bg-[#002133] py-5 `}
       >
         <FontAwesomeIcon
-          onClick={() => setIsPopUp(false)}
+          onClick={() => setIsProfilePopUp(false)}
           className="absolute right-5 text-2xl cursor-pointer  active:ring  px-3 py-2 rounded-lg hover:scale-105 hover:rotate-180 transition-transform active:scale-95 duration-300"
           icon={faXmark}
         />

@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChatState } from "../context/ChatProvider";
 
-const NavBar = ({ setIsSidebar, isSidebar, setIsPopUp }) => {
+const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
   const { user } = ChatState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -70,7 +70,7 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsPopUp }) => {
           >
             <h3
               onClick={() => {
-                setIsPopUp(true);
+                setIsProfilePopUp(true);
                 setIsMenuOpen(false);
               }}
               className="cursor-pointer w-full h-8 text-center hover:bg-[#006761] focus:bg-[#006761] rounded-sm flex items-center justify-center"

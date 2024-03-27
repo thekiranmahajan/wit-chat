@@ -5,3 +5,4 @@ export { default as NavBar } from "./NavBar";
 export { default as ProfilePopUp } from "./ProfilePopUp";
 export { default as MyChats } from "./MyChats";
 export { default as ChatWindow } from "./ChatWindow";
+export { default as GroupChatPopUp } from "./GroupChatPopUp";
