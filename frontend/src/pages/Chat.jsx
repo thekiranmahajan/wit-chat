@@ -20,7 +20,7 @@ const Chat = () => {
   }, []);
   return (
     user !== null && (
-      <div className="relative h-screen w-full flex flex-col font-Marvel">
+      <div className="relative h-screen w-full flex flex-col font-Marvel pb-2 ">
         <NavBar
           setIsSidebar={setIsSidebar}
           setIsProfilePopUp={setIsProfilePopUp}
@@ -31,13 +31,13 @@ const Chat = () => {
           isProfilePopUp={isProfilePopUp}
           setIsProfilePopUp={setIsProfilePopUp}
         />
-
+        <GroupChatPopUp
+          setIsGroupChatPopUp={setIsGroupChatPopUp}
+          isGroupChatPopUp={isGroupChatPopUp}
+        />
         <div className="w-full h-screen flex justify-between p-5">
           <MyChats setIsGroupChatPopUp={setIsGroupChatPopUp} />
-          <GroupChatPopUp
-            setIsGroupChatPopUp={setIsGroupChatPopUp}
-            isGroupChatPopUp={isGroupChatPopUp}
-          />
+
           <ChatWindow />
         </div>
       </div>
