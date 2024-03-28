@@ -35,7 +35,7 @@ const Chat = () => {
           setIsGroupChatPopUp={setIsGroupChatPopUp}
           isGroupChatPopUp={isGroupChatPopUp}
         />
-        <div className="w-full h-screen flex justify-between p-5">
+        <div className="w-full h-[91%] flex justify-between p-5 overflow-hidden">
           <MyChats setIsGroupChatPopUp={setIsGroupChatPopUp} />
 
           <ChatWindow />
