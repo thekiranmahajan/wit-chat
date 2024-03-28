@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ChatState } from "../context/ChatProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,20 +16,37 @@ import SelectedUserBadge from "./SelectedUserBadge";
 import Button from "./Button";
 const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
   const [groupChatName, setGroupChatName] = useState("");
-  const [searchedUsers, setSearchedUsers] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [searchedUsers, setSearchedUsers] = useState(null);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const { user, chats, setChats } = ChatState();
 
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
-      setIsGroupChatPopUp(false);
+      handleClose();
     }
   };
 
+  const handleClose = () => {
+    setIsGroupChatPopUp(false);
+  };
+
+  const resetState = () => {
+    setGroupChatName("");
+    setSearchedUsers(null);
+    setSelectedUsers([]);
+    setSearchText("");
+  };
+
+  useEffect(() => {
+    if (!isGroupChatPopUp) {
+      resetState();
+    }
+  }, [isGroupChatPopUp]);
+
   const handleUserSearch = async (query) => {
     if (!query) return;
-
     try {
       setIsloading(true);
       const config = {
@@ -46,6 +63,12 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
       });
       setIsloading(false);
     }
+  };
+
+  const handleChangeSearchText = (e) => {
+    const query = e.target.value;
+    setSearchText(query);
+    handleUserSearch(query);
   };
 
   const handleAddMemeber = (userToSelect) => {
@@ -77,10 +100,10 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
   }`}
     >
       <div
-        className={`z-40 relative flex flex-col items-center rounded-lg min-h-[500px] max-w-md w-11/12  bg-[#002133] py-5 `}
+        className={`z-40 relative flex flex-col items-center rounded-lg min-h-[540px] max-w-md w-11/12  bg-[#002133] py-5 `}
       >
         <FontAwesomeIcon
-          onClick={() => setIsGroupChatPopUp(false)}
+          onClick={handleClose}
           className="absolute right-5 text-2xl cursor-pointer  active:ring  px-3 py-2 rounded-lg hover:scale-105 hover:rotate-180 transition-transform active:scale-95 duration-300"
           icon={faXmark}
         />
@@ -93,6 +116,7 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
             placeholder="Group Name"
             iconName={faUserGroup}
             styles="w-full"
+            value={groupChatName}
             onChange={(e) => setGroupChatName(e.target.value)}
           />
           <FormField
@@ -100,10 +124,11 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
             placeholder="Search Users to add ex. Ray"
             iconName={faSearch}
             styles="w-full"
-            onChange={(e) => handleUserSearch(e.target.value)}
+            value={searchText}
+            onChange={handleChangeSearchText}
           />
         </div>
-        <div className="flex flex-wrap gap-2  overflow-y-scroll overflow-x-hidden no-scrollbar w-11/12 my-4 transition-all duration-500">
+        <div className="flex flex-wrap gap-2 h-12 overflow-y-scroll overflow-x-hidden no-scrollbar w-10/12 my-2 transition-all duration-500 shadow-inner shadow-[#004351] rounded-md p-2">
           {selectedUsers?.map((user) => (
             <SelectedUserBadge
               key={user._id}
@@ -112,16 +137,14 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
             />
           ))}
         </div>
-        <div className="flex flex-col w-3/4">
+        <div className="flex flex-col w-3/4 mb-2">
           {isLoading ? (
             <UserSearchShimmer noOfTimes={4} />
           ) : (
             searchedUsers && (
               <div className="flex flex-col  justify-center w-full">
                 {searchedUsers?.length === 0 && (
-                  <p className="font-bold ml-4 mt-2">
-                    No Users found with search
-                  </p>
+                  <p className="font-bold ml-4 mt-2">No such users found</p>
                 )}
                 {searchedUsers?.length !== 0 &&
                   searchedUsers
@@ -140,7 +163,7 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
         <Button
           type="submit"
           title="Create"
-          styles="bg-[#4A8B65] mt-4 !absolute bottom-4"
+          styles="bg-[#4A8B65] mt-4 !absolute bottom-4 hover:scale-105 transition-transform active:scale-95 duration-300"
           isLoading={isLoading}
           onClick={HandleSubmit}
         />
