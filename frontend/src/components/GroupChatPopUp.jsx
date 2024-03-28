@@ -13,6 +13,7 @@ import { loader } from "../assets";
 import SearchedUserCard from "./SearchedUserCard";
 import UserSearchShimmer from "./UserSearchShimmer";
 import SelectedUserBadge from "./SelectedUserBadge";
+import Button from "./Button";
 const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
   const [groupChatName, setGroupChatName] = useState("");
   const [searchedUsers, setSearchedUsers] = useState([]);
@@ -47,17 +48,24 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
     }
   };
 
-  const handleAddMemeber = (selectedUser) => {
-    console.log("member", selectedUser);
-    if (selectedUsers?.includes(selectedUser)) {
+  const handleAddMemeber = (userToSelect) => {
+    if (selectedUsers.some((user) => user._id === userToSelect._id)) {
       toast.warn("User already added", {
         theme: "dark",
       });
       return;
     }
-    setSelectedUsers([...selectedUsers, selectedUser]);
+    setSelectedUsers([...selectedUsers, userToSelect]);
   };
-  const handleUnselectUser = (user) => {};
+
+  const handleUnselectUser = (userToUnselect) => {
+    setSelectedUsers(
+      selectedUsers.filter(
+        (selectedUser) => selectedUser._id !== userToUnselect._id
+      )
+    );
+  };
+  const HandleSubmit = () => {};
   return (
     <div
       onClick={handleOutsideClick}
@@ -95,7 +103,7 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
             onChange={(e) => handleUserSearch(e.target.value)}
           />
         </div>
-        <div className="flex flex-wrap gap-2 h-20 overflow-y-scroll overflow-x-hidden no-scrollbar w-11/12 my-4 ">
+        <div className="flex flex-wrap gap-2  overflow-y-scroll overflow-x-hidden no-scrollbar w-11/12 my-4 transition-all duration-500">
           {selectedUsers?.map((user) => (
             <SelectedUserBadge
               key={user._id}
@@ -112,7 +120,7 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
               <div className="flex flex-col  justify-center w-full">
                 {searchedUsers?.length === 0 && (
                   <p className="font-bold ml-4 mt-2">
-                    No Users found with given name or email.
+                    No Users found with search
                   </p>
                 )}
                 {searchedUsers?.length !== 0 &&
@@ -129,6 +137,13 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
             )
           )}
         </div>
+        <Button
+          type="submit"
+          title="Create"
+          styles="bg-[#4A8B65] mt-4 !absolute bottom-4"
+          isLoading={isLoading}
+          onClick={HandleSubmit}
+        />
       </div>
     </div>
   );
