@@ -88,7 +88,48 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
       )
     );
   };
-  const HandleSubmit = () => {};
+  const HandleSubmit = async () => {
+    setIsloading(true);
+    if (!groupChatName || !searchedUsers) {
+      toast.warn("Please provide required fields", {
+        theme: "dark",
+      });
+      setIsloading(false);
+      return;
+    }
+    try {
+      const config = {
+        headers: { authorization: `Bearer ${user.token}` },
+      };
+      const { data } = await axios.post(
+        "/api/chat/create-group",
+        {
+          name: groupChatName,
+          users: JSON.stringify(
+            selectedUsers.map((selectedUser) => selectedUser._id)
+          ),
+        },
+        config
+      );
+      setChats([data, ...chats]);
+      setIsloading(false);
+      setIsGroupChatPopUp(false);
+      toast.success("Group chat created successfully!", {
+        theme: "dark",
+      });
+    } catch (error) {
+      if (selectedUsers.length <= 1) {
+        toast.warn("Minimum 3 members needed", {
+          theme: "dark",
+        });
+        return;
+      }
+      toast.error("Failed to create a group chat", {
+        theme: "dark",
+      });
+      setIsloading(false);
+    }
+  };
   return (
     <div
       onClick={handleOutsideClick}

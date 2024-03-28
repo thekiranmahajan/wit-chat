@@ -56,14 +56,20 @@ const MyChats = ({ setIsGroupChatPopUp }) => {
                 }`}
               >
                 <div className="sm:h-10 sm:w-10 h-8 w-8 rounded-full overflow-hidden flex items-center justify-center">
-                  <img
-                    className="h-full w-full object-cover rounded-full"
-                    src={
-                      getSender(chat?.users, loggedUser)?.avatar ||
-                      "https://i.pinimg.com/564x/98/53/c5/9853c5ae293810fc37fb567c8940c303.jpg"
-                    }
-                    alt="avatar"
-                  />
+                  {!chat?.isGroupChat && (
+                    <img
+                      className="h-full w-full object-cover rounded-full"
+                      src={getSender(chat?.users, loggedUser)?.avatar}
+                      alt="avatar"
+                    />
+                  )}
+                  {chat?.isGroupChat && (
+                    <img
+                      className="h-full w-full object-cover rounded-full"
+                      src="https://i.pinimg.com/564x/98/53/c5/9853c5ae293810fc37fb567c8940c303.jpg"
+                      alt="avatar"
+                    />
+                  )}
                 </div>
                 <div className="relative leading-5 truncate h-12 w-3/4 flex flex-col justify-center py-1 ml-4">
                   <h2 className=" ">
