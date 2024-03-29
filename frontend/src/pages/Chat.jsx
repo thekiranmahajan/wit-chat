@@ -10,9 +10,9 @@ import {
 import { useEffect, useState } from "react";
 
 const Chat = () => {
-  const { setUser, user } = ChatState();
+  const { setUser, user, isProfilePopUp, setIsProfilePopUp } = ChatState();
   const [isSidebar, setIsSidebar] = useState(false);
-  const [isProfilePopUp, setIsProfilePopUp] = useState(false);
+
   const [isGroupChatPopUp, setIsGroupChatPopUp] = useState(false);
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -35,9 +35,11 @@ const Chat = () => {
           setIsGroupChatPopUp={setIsGroupChatPopUp}
           isGroupChatPopUp={isGroupChatPopUp}
         />
-        <div className="w-full h-[91%] flex justify-between p-5 overflow-hidden">
-          <MyChats setIsGroupChatPopUp={setIsGroupChatPopUp} />
-
+        <div className="w-full h-[91%] flex justify-center p-5 overflow-hidden gap-4 md:gap-8 ">
+          <MyChats
+            setIsGroupChatPopUp={setIsGroupChatPopUp}
+            setIsSidebar={setIsSidebar}
+          />
           <ChatWindow />
         </div>
       </div>
