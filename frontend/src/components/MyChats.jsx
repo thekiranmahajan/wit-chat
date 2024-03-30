@@ -34,12 +34,16 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
   }, []);
 
   return (
-    <div className="blurEffect max-w-md md:w-2/6 w-full h-full rounded-lg flex flex-col p-5 shadow-lg items-center gap-4">
-      <div className="flex w-full items-center justify-between flex-col lg:flex-row gap-2">
+    <div
+      className={`${
+        selectedChat ? "hidden" : "flex"
+      } blurEffect max-w-md md:w-2/6 w-full h-full rounded-lg flex-col p-5 shadow-lg items-center gap-4 md:flex`}
+    >
+      <div className="flex w-full items-center justify-between flex-col xl:flex-row gap-2">
         <h2 className="text-2xl md:text-3xl  font-extrabold">My Chats</h2>
         <Button
           title="Create A Group Chat"
-          styles="bg-[#002133] shadow-lg  relative hover:scale-105 transition-transform active:scale-95 duration-300 font-bold truncate w-full   lg:w-[80%] lg:max-w-64"
+          styles="bg-[#002133] shadow-lg  relative hover:scale-105 transition-transform active:scale-95 duration-300 font-bold truncate w-full   xl:w-[80%] lg:max-w-64"
           iconName={faPlus}
           onClick={HandleGroupChat}
         />

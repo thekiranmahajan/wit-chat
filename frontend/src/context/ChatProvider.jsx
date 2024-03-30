@@ -8,6 +8,7 @@ export const ChatProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
+  const [refreshChats, setRefreshChats] = useState(false);
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -23,6 +24,8 @@ export const ChatProvider = ({ children }) => {
         setSelectedChat,
         chats,
         setChats,
+        refreshChats,
+        setRefreshChats,
       }}
     >
       <ToastContainer />
