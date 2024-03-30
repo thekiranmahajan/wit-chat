@@ -1,10 +1,8 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { ChatState } from "../context/ChatProvider";
 
-const ProfilePopUp = ({ setIsProfilePopUp, isProfilePopUp }) => {
-  const { user } = ChatState();
+const ProfilePopUp = ({ setIsProfilePopUp, isProfilePopUp, user }) => {
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
       setIsProfilePopUp(false);
@@ -13,7 +11,7 @@ const ProfilePopUp = ({ setIsProfilePopUp, isProfilePopUp }) => {
   return (
     <div
       onClick={handleOutsideClick}
-      className={`blurEffect z-10 absolute flex h-full w-full items-center justify-center ${
+      className={`blurEffect z-10  flex h-screen w-screen items-center justify-center fixed top-0 left-0 ${
         isProfilePopUp
           ? "opacity-100 translate-y-0 transition-all duration-500 ease-in-out "
           : " opacity-0 -translate-y-full transition-all duration-500"

@@ -25,7 +25,7 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
     }
   };
   return (
-    <div className="relative blurEffect w-full h-16 flex items-center justify-between flex-wrap sm:px-8 px-4">
+    <div className="relative blurEffect w-full h-16 flex items-center justify-between flex-wrap sm:px-8 px-4 z-10">
       <div
         onClick={() => {
           setIsSidebar(true);
