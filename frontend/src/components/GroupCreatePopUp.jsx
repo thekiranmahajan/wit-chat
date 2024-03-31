@@ -87,7 +87,7 @@ const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
       )
     );
   };
-  const HandleSubmit = async () => {
+  const HandleCreateGroup = async () => {
     setIsloading(true);
     if (!groupChatName || !searchedUsers) {
       toast.warn("Please provide required fields", {
@@ -132,7 +132,7 @@ const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
   return (
     <div
       onClick={handleOutsideClick}
-      className={`blurEffect z-10 absolute flex h-full w-full items-center justify-center  ${
+      className={`blurEffect z-10 fixed top-0 left-0 flex h-screen w-screen items-center justify-center  ${
         isGroupChatPopUp
           ? "opacity-100 -translate-y-0 transition-all duration-500 ease-in-out "
           : " opacity-0 -translate-y-full transition-all duration-500"
@@ -205,7 +205,7 @@ const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
           title="Create"
           styles="bg-[#4A8B65] mt-4 !absolute bottom-4 hover:scale-105 transition-transform active:scale-95 duration-300"
           isLoading={isLoading}
-          onClick={HandleSubmit}
+          onClick={HandleCreateGroup}
         />
       </div>
     </div>

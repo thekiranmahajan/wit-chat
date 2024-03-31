@@ -69,11 +69,12 @@ const ChatWindow = () => {
           user={getSender(selectedChat?.users, user)}
         />
       ) : (
-        <GroupUpdatePopUp
-          isGroupUpdatePopUp={isGroupUpdatePopUp}
-          setIsGroupUpdatePopUp={setIsGroupUpdatePopUp}
-          groupInfo={selectedChat}
-        />
+        selectedChat && (
+          <GroupUpdatePopUp
+            isGroupUpdatePopUp={isGroupUpdatePopUp}
+            setIsGroupUpdatePopUp={setIsGroupUpdatePopUp}
+          />
+        )
       )}
     </>
   );

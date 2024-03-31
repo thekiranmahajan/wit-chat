@@ -16,7 +16,6 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
         headers: { authorization: `Bearer ${user.token}` },
       };
       const { data } = await axios.get("/api/chat", config);
-      console.log(data);
       setChats(data);
     } catch (error) {
       toast.error("Failed Fetch chats from API.", {
