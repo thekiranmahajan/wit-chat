@@ -249,13 +249,15 @@ const GroupUpdatePopUp = ({ setIsGroupUpdatePopUp, isGroupUpdatePopUp }) => {
           />
         </div>
         <div className="flex flex-wrap gap-2 h-12 overflow-y-scroll overflow-x-hidden no-scrollbar w-10/12 my-2 transition-all duration-500 shadow-inner shadow-[#004351] rounded-md p-2">
-          {selectedChat?.users?.map((user) => (
-            <SelectedUserBadge
-              key={user._id}
-              user={user}
-              onClick={() => handleRemoveUser(user)}
-            />
-          ))}
+          {selectedChat?.users
+            ?.filter((u) => u._id !== user._id)
+            .map((user) => (
+              <SelectedUserBadge
+                key={user._id}
+                user={user}
+                onClick={() => handleRemoveUser(user)}
+              />
+            ))}
         </div>
         <div className="flex flex-col w-3/4 mb-2">
           {isLoading ? (
