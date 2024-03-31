@@ -8,7 +8,8 @@ import { getSender } from "../constants/chatDataRetrieval";
 const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
   const [loggedUser, setLoggedUser] = useState();
 
-  const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
+  const { user, selectedChat, setSelectedChat, chats, setChats, refreshChats } =
+    ChatState();
 
   const fetchChats = async () => {
     try {
@@ -30,7 +31,7 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, []);
+  }, [refreshChats]);
 
   return (
     <div
