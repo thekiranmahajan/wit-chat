@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Chat from "../models/chatModel.js";
 import User from "../models/userModel.js";
-import { populate } from "dotenv";
 
 export const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;

@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import colors from "colors";
 import userRoutes from "./routes/userRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import {
   notFound,
   errorHandler,
@@ -24,6 +25,7 @@ app.get("/api/env", (req, res) => {
 });
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
 
 // ----------------Deployment-----------------
 const __dirname1 = path.resolve();
