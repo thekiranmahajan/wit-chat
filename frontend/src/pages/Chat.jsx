@@ -5,7 +5,7 @@ import {
   ProfilePopUp,
   MyChats,
   ChatWindow,
-  GroupChatPopUp,
+  GroupCreatePopUp,
 } from "../components";
 import { useEffect, useState } from "react";
 
@@ -32,7 +32,7 @@ const Chat = () => {
           setIsProfilePopUp={setIsProfilePopUp}
           user={user}
         />
-        <GroupChatPopUp
+        <GroupCreatePopUp
           setIsGroupChatPopUp={setIsGroupChatPopUp}
           isGroupChatPopUp={isGroupChatPopUp}
         />

@@ -9,12 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import FormField from "./FormField";
 import axios from "axios";
-import { loader } from "../assets";
 import SearchedUserCard from "./SearchedUserCard";
 import UserSearchShimmer from "./UserSearchShimmer";
 import SelectedUserBadge from "./SelectedUserBadge";
 import Button from "./Button";
-const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
+const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
   const [groupChatName, setGroupChatName] = useState("");
   const [searchText, setSearchText] = useState("");
   const [searchedUsers, setSearchedUsers] = useState(null);
@@ -213,4 +212,4 @@ const GroupChatPopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
   );
 };
 
-export default GroupChatPopUp;
+export default GroupCreatePopUp;
