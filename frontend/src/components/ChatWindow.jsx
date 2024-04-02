@@ -5,11 +5,17 @@ import { faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
 import { getSender } from "../constants/chatDataRetrieval";
 import ProfilePopUp from "./ProfilePopUp";
 import GroupUpdatePopUp from "./GroupUpdatePopUp";
+import { loader } from "../assets";
+import FormField from "./FormField";
 
 const ChatWindow = () => {
   const { selectedChat, setSelectedChat, user } = ChatState();
   const [isProfilePopUp, setIsProfilePopUp] = useState(false);
   const [isGroupUpdatePopUp, setIsGroupUpdatePopUp] = useState(false);
+  const [newMessages, setNewMessages] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChatInfo = () => {
     selectedChat?.isGroupChat
       ? setIsGroupUpdatePopUp(true)
@@ -59,7 +65,23 @@ const ChatWindow = () => {
               Select a User/Group to start chatting...
             </h2>
           )}
-          {/* messages will be here */}
+          {selectedChat && isLoading ? (
+            <img
+              className=" flex h-14 w-14 sm:h-20 sm:w-20 md:h-24 md:w-24 align-middle m-auto"
+              src={loader}
+              alt="loader"
+            />
+          ) : (
+            <div>
+              <form>
+                <FormField
+                  inputType="text"
+                  styles="m-0 px-0 w-full"
+                  placeholder="Type message and press Enter..."
+                />
+              </form>
+            </div>
+          )}
         </div>
       </div>
       {selectedChat && !selectedChat?.isGroupChat ? (
