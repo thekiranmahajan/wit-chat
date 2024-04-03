@@ -9,9 +9,10 @@ const FormField = ({
   placeholder,
   isRequired,
   isFileInput,
-  onChange,
+  handleOnChange,
   value,
   styles,
+  colorStyles,
 }) => {
   return (
     <div className={`px-4 mt-2 flex flex-col gap-1 ${styles}`}>
@@ -23,7 +24,7 @@ const FormField = ({
       )}
 
       <div
-        className={`h-10 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden`}
+        className={`h-10 rounded-md flex items-center px-4 bg-[#004351] overflow-hidden ${colorStyles}`}
       >
         {iconName && (
           <FontAwesomeIcon className="sm:text-xl text-lg" icon={iconName} />
@@ -36,7 +37,7 @@ const FormField = ({
           type={inputType}
           placeholder={placeholder}
           id={id}
-          onChange={onChange}
+          onChange={handleOnChange}
           accept={isFileInput ? "image/*" : ""}
           value={value}
         />

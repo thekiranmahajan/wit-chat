@@ -221,7 +221,7 @@ const Home = () => {
               placeholder="Wit"
               id="name"
               isRequired={true}
-              onChange={(e) => setName(e.target.value)}
+              handleOnChange={(e) => setName(e.target.value)}
             />
             <FormField
               label="Email"
@@ -230,7 +230,7 @@ const Home = () => {
               placeholder="wit@example.com"
               id="email"
               isRequired={true}
-              onChange={(e) => setEmail(e.target.value)}
+              handleOnChange={(e) => setEmail(e.target.value)}
             />
             <div className="relative ">
               <FormField
@@ -240,7 +240,7 @@ const Home = () => {
                 placeholder="Enter a strong password"
                 id="password"
                 isRequired={true}
-                onChange={(e) => setPassword(e.target.value)}
+                handleOnChange={(e) => setPassword(e.target.value)}
               />
               <FontAwesomeIcon
                 className="cursor-pointer absolute top-12 right-8"
@@ -256,7 +256,7 @@ const Home = () => {
                 placeholder="Re-enter your password"
                 id="confirmPassword"
                 isRequired={true}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                handleOnChange={(e) => setConfirmPassword(e.target.value)}
               />
               <FontAwesomeIcon
                 className="cursor-pointer absolute top-12 right-8"
@@ -270,7 +270,7 @@ const Home = () => {
               iconName={faUserAstronaut}
               id="avatar"
               isFileInput={true}
-              onChange={(e) => uploadAvatar(e)}
+              handleOnChange={(e) => uploadAvatar(e)}
             />
           </>
         )}
@@ -283,7 +283,7 @@ const Home = () => {
               placeholder="wit@example.com"
               id="email"
               isRequired={true}
-              onChange={(e) => setEmail(e.target.value)}
+              handleOnChange={(e) => setEmail(e.target.value)}
               value={email}
             />
             <div className="relative ">
@@ -294,7 +294,7 @@ const Home = () => {
                 placeholder="Enter your password"
                 id="password"
                 isRequired={true}
-                onChange={(e) => setPassword(e.target.value)}
+                handleOnChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
               <FontAwesomeIcon

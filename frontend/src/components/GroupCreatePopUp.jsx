@@ -157,7 +157,7 @@ const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
             iconName={faUserGroup}
             styles="w-full"
             value={groupChatName}
-            onChange={(e) => setGroupChatName(e.target.value)}
+            handleOnChange={(e) => setGroupChatName(e.target.value)}
           />
           <FormField
             inputType="text"
@@ -165,7 +165,7 @@ const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
             iconName={faSearch}
             styles="w-full"
             value={searchText}
-            onChange={handleChangeSearchText}
+            handleOnChange={handleChangeSearchText}
           />
         </div>
         <div className="flex flex-wrap gap-2 h-12 overflow-y-scroll overflow-x-hidden no-scrollbar w-10/12 my-2 transition-all duration-500 shadow-inner shadow-[#004351] rounded-md p-2">
