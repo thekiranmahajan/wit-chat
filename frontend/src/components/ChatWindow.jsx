@@ -7,12 +7,14 @@ import ProfilePopUp from "./ProfilePopUp";
 import GroupUpdatePopUp from "./GroupUpdatePopUp";
 import { loader } from "../assets";
 import FormField from "./FormField";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ChatWindow = () => {
   const { selectedChat, setSelectedChat, user } = ChatState();
   const [isProfilePopUp, setIsProfilePopUp] = useState(false);
   const [isGroupUpdatePopUp, setIsGroupUpdatePopUp] = useState(false);
-  const [newMessages, setNewMessages] = useState(null);
+  const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,6 +22,40 @@ const ChatWindow = () => {
     selectedChat?.isGroupChat
       ? setIsGroupUpdatePopUp(true)
       : setIsProfilePopUp(true);
+  };
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    if (e.key === "Enter" && newMessage) {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        };
+        setNewMessage("");
+        const { data } = await axios.post(
+          "/api/message",
+          {
+            content: newMessage,
+            chatId: selectedChat._id,
+          },
+          config
+        );
+        console.log(data);
+        setMessages([...messages, data]);
+      } catch (error) {
+        toast.error(`${error.message}`, {
+          theme: "dark",
+        });
+      }
+    }
+  };
+  const handleTyping = (e) => {
+    setNewMessage(e.target.value);
+
+    // Typing indicator logic
   };
   return (
     <>
@@ -72,15 +108,20 @@ const ChatWindow = () => {
               alt="loader"
             />
           ) : (
-            <div>
-              <form>
-                <FormField
-                  inputType="text"
-                  styles="m-0 px-0 w-full"
-                  placeholder="Type message and press Enter..."
-                />
-              </form>
-            </div>
+            selectedChat && (
+              <div>
+                <form onKeyDown={sendMessage}>
+                  <FormField
+                    inputType="text"
+                    styles="m-0 px-0 w-full"
+                    colorStyles="bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
+                    placeholder="Type message and press Enter..."
+                    handleOnChange={handleTyping}
+                    value={newMessage}
+                  />
+                </form>
+              </div>
+            )
           )}
         </div>
       </div>
