@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChatState } from "../context/ChatProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +25,7 @@ const ChatWindow = () => {
   };
 
   const sendMessage = async (e) => {
+    console.log("click");
     e.preventDefault();
     if (e.key === "Enter" && newMessage) {
       try {
@@ -57,6 +58,9 @@ const ChatWindow = () => {
 
     // Typing indicator logic
   };
+  useEffect(() => {
+    setNewMessage("");
+  }, [selectedChat]);
   return (
     <>
       <div
@@ -109,18 +113,15 @@ const ChatWindow = () => {
             />
           ) : (
             selectedChat && (
-              <div>
-                <form onKeyDown={sendMessage}>
-                  <FormField
-                    inputType="text"
-                    styles="m-0 px-0 w-full"
-                    colorStyles="bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
-                    placeholder="Type message and press Enter..."
-                    handleOnChange={handleTyping}
-                    value={newMessage}
-                  />
-                </form>
-              </div>
+              <FormField
+                inputType="text"
+                styles="m-0 px-0 w-full"
+                colorStyles="bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
+                placeholder="Type message and press Enter..."
+                handleOnChange={handleTyping}
+                value={newMessage}
+                handleOnKeyUp={sendMessage}
+              />
             )
           )}
         </div>

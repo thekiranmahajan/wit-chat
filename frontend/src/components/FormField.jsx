@@ -13,6 +13,7 @@ const FormField = ({
   value,
   styles,
   colorStyles,
+  handleOnKeyUp,
 }) => {
   return (
     <div className={`px-4 mt-2 flex flex-col gap-1 ${styles}`}>
@@ -40,6 +41,7 @@ const FormField = ({
           onChange={handleOnChange}
           accept={isFileInput ? "image/*" : ""}
           value={value}
+          onKeyUp={handleOnKeyUp}
         />
       </div>
     </div>
