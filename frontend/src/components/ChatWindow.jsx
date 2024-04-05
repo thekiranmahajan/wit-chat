@@ -9,6 +9,7 @@ import { loader } from "../assets";
 import FormField from "./FormField";
 import axios from "axios";
 import { toast } from "react-toastify";
+import ScrollableChat from "./ScrollableChat";
 
 const ChatWindow = () => {
   const { selectedChat, setSelectedChat, user } = ChatState();
@@ -26,6 +27,7 @@ const ChatWindow = () => {
   useEffect(() => {
     fetchMessages();
   }, [selectedChat]);
+
   const fetchMessages = async () => {
     if (!selectedChat) return;
     try {
@@ -50,7 +52,6 @@ const ChatWindow = () => {
       setIsLoading(false);
     }
   };
-
   const sendMessage = async (e) => {
     console.log("click");
     e.preventDefault();
@@ -140,15 +141,20 @@ const ChatWindow = () => {
             />
           ) : (
             selectedChat && (
-              <FormField
-                inputType="text"
-                styles="m-0 px-0 w-full"
-                colorStyles="bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
-                placeholder="Type message and press Enter..."
-                handleOnChange={handleTyping}
-                value={newMessage}
-                handleOnKeyUp={sendMessage}
-              />
+              <>
+                <div className="flex flex-col overflow-y-scroll ">
+                  <ScrollableChat messages={messages} />
+                </div>
+                <FormField
+                  inputType="text"
+                  styles="m-0 px-0 w-full"
+                  colorStyles="bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
+                  placeholder="Type message and press Enter..."
+                  handleOnChange={handleTyping}
+                  value={newMessage}
+                  handleOnKeyUp={sendMessage}
+                />
+              </>
             )
           )}
         </div>
@@ -164,6 +170,7 @@ const ChatWindow = () => {
           <GroupUpdatePopUp
             isGroupUpdatePopUp={isGroupUpdatePopUp}
             setIsGroupUpdatePopUp={setIsGroupUpdatePopUp}
+            fetchMessages={fetchMessages}
           />
         )
       )}
