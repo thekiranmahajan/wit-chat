@@ -23,6 +23,33 @@ const ChatWindow = () => {
       ? setIsGroupUpdatePopUp(true)
       : setIsProfilePopUp(true);
   };
+  useEffect(() => {
+    fetchMessages();
+  }, [selectedChat]);
+  const fetchMessages = async () => {
+    if (!selectedChat) return;
+    try {
+      setIsLoading(true);
+      const config = {
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `/api/message/${selectedChat._id}`,
+        config
+      );
+      console.log(data);
+      setMessages(data);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        theme: "dark",
+      });
+      setIsLoading(false);
+    }
+  };
 
   const sendMessage = async (e) => {
     console.log("click");
@@ -44,7 +71,7 @@ const ChatWindow = () => {
           },
           config
         );
-        console.log(data);
+        // console.log(data);
         setMessages([...messages, data]);
       } catch (error) {
         toast.error(`${error.message}`, {
