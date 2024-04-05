@@ -121,6 +121,7 @@ const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
         toast.warn("Minimum 3 members needed", {
           theme: "dark",
         });
+        setIsloading(false);
         return;
       }
       toast.error("Failed to create a group chat", {
