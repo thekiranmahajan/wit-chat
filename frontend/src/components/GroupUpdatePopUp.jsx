@@ -14,7 +14,11 @@ import UserSearchShimmer from "./UserSearchShimmer";
 import SelectedUserBadge from "./SelectedUserBadge";
 import Button from "./Button";
 
-const GroupUpdatePopUp = ({ setIsGroupUpdatePopUp, isGroupUpdatePopUp }) => {
+const GroupUpdatePopUp = ({
+  setIsGroupUpdatePopUp,
+  isGroupUpdatePopUp,
+  fetchMessages,
+}) => {
   const { user, selectedChat, setSelectedChat, setRefreshChats } = ChatState();
   const [groupChatName, setGroupChatName] = useState(
     selectedChat?.chatName || ""
@@ -138,6 +142,7 @@ const GroupUpdatePopUp = ({ setIsGroupUpdatePopUp, isGroupUpdatePopUp }) => {
       );
       userToRemove._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setRefreshChats((prev) => !prev);
+      fetchMessages();
       setIsloading(false);
       userToRemove._id === user._id
         ? toast.success("You have left the group", {
