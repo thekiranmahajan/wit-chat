@@ -16,7 +16,7 @@ const ScrollableChat = ({ messages }) => {
         messages.map((message, index) => (
           <div
             key={message._id}
-            className="flex  items-center gap-1 no-scrollbar px-6 "
+            className="flex  items-center gap-1 no-scrollbar px-4 "
           >
             {(isSameSender(messages, message, index, user._id) ||
               isLastMessage(messages, index, user._id)) && (
@@ -34,13 +34,21 @@ const ScrollableChat = ({ messages }) => {
               </div>
             )}
             <span
-              className={`rounded-2xl py-1 px-4  max-w-[70%] break-words ${
+              style={{
+                marginLeft: isSameSenderMargin(
+                  messages,
+                  message,
+                  index,
+                  user._id
+                ),
+              }}
+              className={`rounded-2xl py-1 px-4  max-w-[70%] break-words   
+              ${
                 message.sender._id === user._id
                   ? "bg-[#002133]"
                   : "bg-[#36a765]"
-              }  ml-${isSameSenderMargin(messages, message, index, user._id)}
-              
-              mt-${isSameUser(messages, message, index) ? 1 : 8} `}
+              } mt-${isSameUser(messages, message, index) ? 1 : 8}         
+             `}
             >
               {message.content}
             </span>
