@@ -124,7 +124,7 @@ const ChatWindow = () => {
           )}
         </div>
         <div
-          className={`bg-[#004351] h-[90%] rounded-lg w-full shadow-md p-5 flex justify-end flex-col overflow-y-scroll no-scrollbar ${
+          className={`bg-[#004351] h-[90%] rounded-lg w-full shadow-md p-5 flex justify-end flex-col  ${
             !selectedChat && "justify-center items-center"
           }`}
         >
@@ -142,7 +142,7 @@ const ChatWindow = () => {
           ) : (
             selectedChat && (
               <>
-                <div className="flex flex-col overflow-y-scroll ">
+                <div className="flex flex-col overflow-y-scroll no-scrollbar">
                   <ScrollableChat messages={messages} />
                 </div>
                 <FormField
