@@ -10,6 +10,8 @@ import FormField from "./FormField";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ScrollableChat from "./ScrollableChat";
+import { socket } from "../constants/socket";
+var selectedChatCampare;
 
 const ChatWindow = () => {
   const { selectedChat, setSelectedChat, user } = ChatState();
@@ -18,16 +20,41 @@ const ChatWindow = () => {
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSocketConnected, setIsSockectConnected] = useState(false);
+
+  useEffect(() => {
+    socket.emit("setup", user);
+    socket.on("connection", () => setIsSockectConnected(true));
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    setNewMessage("");
+    fetchMessages();
+    selectedChatCampare = selectedChat;
+  }, [selectedChat]);
+
+  useEffect(() => {
+    socket.on("message_received", (newMessageReceived) => {
+      if (
+        !selectedChatCampare ||
+        selectedChatCampare._id !== newMessageReceived.chat._id
+      ) {
+        // Give Notification
+      } else {
+        setMessages([...messages, newMessageReceived]);
+      }
+    });
+  });
 
   const handleChatInfo = () => {
     selectedChat?.isGroupChat
       ? setIsGroupUpdatePopUp(true)
       : setIsProfilePopUp(true);
   };
-  useEffect(() => {
-    fetchMessages();
-  }, [selectedChat]);
-
   const fetchMessages = async () => {
     if (!selectedChat) return;
     try {
@@ -45,6 +72,8 @@ const ChatWindow = () => {
       console.log(data);
       setMessages(data);
       setIsLoading(false);
+
+      socket.emit("join_chat", selectedChat._id);
     } catch (error) {
       toast.error(`${error.message}`, {
         theme: "dark",
@@ -73,6 +102,7 @@ const ChatWindow = () => {
           config
         );
         // console.log(data);
+        socket.emit("new_message", data);
         setMessages([...messages, data]);
       } catch (error) {
         toast.error(`${error.message}`, {
@@ -86,9 +116,7 @@ const ChatWindow = () => {
 
     // Typing indicator logic
   };
-  useEffect(() => {
-    setNewMessage("");
-  }, [selectedChat]);
+
   return (
     <>
       <div

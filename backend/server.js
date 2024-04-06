@@ -9,7 +9,10 @@ import {
   notFound,
   errorHandler,
 } from "./middleware/errorHandlingMiddleware.js";
-import path from "path";
+import path, { join } from "path";
+import { createServer } from "http";
+import { Server } from "socket.io";
+
 const app = express();
 dotenv.config();
 connectDB();
@@ -45,5 +48,45 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  pingTimeout: 60000,
+  cors: {
+    origin:
+      process.env.NODE_ENV === "production"
+        ? undefined
+        : "http://localhost:5173",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected to socket.io");
+
+  socket.on("setup", (userData) => {
+    socket.join(userData._id);
+    // console.log(userData._id);
+    socket.emit("connected");
+  });
+
+  socket.on("join_chat", (room) => {
+    socket.join(room);
+    console.log("User joined room: " + room);
+  });
+
+  socket.on("new_message", (newMessageReceived) => {
+    var chat = newMessageReceived.chat;
+    if (!chat.users) return console.log("chat.users not found");
+
+    chat.users.forEach((user) => {
+      if (user._id == newMessageReceived.sender._id) return;
+
+      socket.in(user._id).emit("message_received", newMessageReceived);
+    });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, console.log(`Server is running on PORT ${PORT}`.green.bold));
+httpServer.listen(
+  PORT,
+  console.log(`Server is running on PORT ${PORT}`.green.bold)
+);
