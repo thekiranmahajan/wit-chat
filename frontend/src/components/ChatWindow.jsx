@@ -5,12 +5,13 @@ import { faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
 import { getSender } from "../constants/chatDataRetrieval";
 import ProfilePopUp from "./ProfilePopUp";
 import GroupUpdatePopUp from "./GroupUpdatePopUp";
-import { loader } from "../assets";
+import { loader, animationData } from "../assets";
 import FormField from "./FormField";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ScrollableChat from "./ScrollableChat";
 import { socket } from "../constants/socket";
+import Lottie from "react-lottie";
 var selectedChatCampare;
 
 const ChatWindow = () => {
@@ -23,6 +24,15 @@ const ChatWindow = () => {
   const [isSocketConnected, setIsSockectConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   useEffect(() => {
     socket.emit("setup", user);
@@ -200,8 +210,13 @@ const ChatWindow = () => {
 
                 <form
                   onKeyDown={handleKeyDown}
-                  className="rounded-md flex items-center px-4 overflow-hidden bg-[#00655F] shadow-lg hover:ring-2 ring-[#3fa2d7] transition-all duration-300 truncate"
+                  className="rounded-md flex items-center px-4 overflow-hidden bg-[#00655F] shadow-lg hover:ring-2 ring-[#3fa2d7] transition-all duration-300 truncate relative"
                 >
+                  {isTyping && (
+                    <div className="absolute right-2">
+                      <Lottie height={25} options={defaultOptions} />
+                    </div>
+                  )}
                   <input
                     type="text"
                     placeholder="Type message and press Enter..."
@@ -209,9 +224,6 @@ const ChatWindow = () => {
                     value={newMessage}
                     onChange={handleTyping}
                   />
-                  {isTyping && (
-                    <div className="absolute bg-red-500">Loading...</div>
-                  )}
                 </form>
               </>
             )
