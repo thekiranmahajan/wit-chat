@@ -73,6 +73,10 @@ io.on("connection", (socket) => {
     console.log("User joined room: " + room);
   });
 
+  socket.on("typing", (room) => socket.in(room).emit("typing"));
+  
+  socket.on("stop_typing", (room) => socket.in(room).emit("stop_typing"));
+
   socket.on("new_message", (newMessageReceived) => {
     var chat = newMessageReceived.chat;
     if (!chat.users) return console.log("chat.users not found");

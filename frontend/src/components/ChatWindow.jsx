@@ -21,11 +21,14 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSocketConnected, setIsSockectConnected] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     socket.emit("setup", user);
-    socket.on("connection", () => setIsSockectConnected(true));
-
+    socket.on("connected", () => setIsSockectConnected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop_typing", () => setIsTyping(false));
     return () => {
       socket.disconnect();
     };
@@ -112,6 +115,7 @@ const ChatWindow = () => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
+      socket.emit("stop_typing", selectedChat._id);
       sendMessage();
     }
   };
@@ -119,6 +123,24 @@ const ChatWindow = () => {
     setNewMessage(e.target.value);
 
     // Typing indicator logic
+    if (!isSocketConnected) return;
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", selectedChat._id);
+    }
+
+    let lastTypingTime = new Date().getTime();
+    var timeout = 2000;
+
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+
+      if (timeDiff >= timeout && typing) {
+        socket.emit("stop_typing", selectedChat._id);
+        setTyping(false);
+      }
+    }, timeout);
   };
 
   return (
@@ -178,7 +200,7 @@ const ChatWindow = () => {
 
                 <form
                   onKeyDown={handleKeyDown}
-                  className="rounded-md flex items-center px-4 overflow-hidden bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
+                  className="rounded-md flex items-center px-4 overflow-hidden bg-[#00655F] shadow-lg hover:ring-2 ring-[#3fa2d7] transition-all duration-300 truncate"
                 >
                   <input
                     type="text"
@@ -187,6 +209,9 @@ const ChatWindow = () => {
                     value={newMessage}
                     onChange={handleTyping}
                   />
+                  {isTyping && (
+                    <div className="absolute bg-red-500">Loading...</div>
+                  )}
                 </form>
               </>
             )
