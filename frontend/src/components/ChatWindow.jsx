@@ -174,13 +174,11 @@ const ChatWindow = () => {
           ) : (
             selectedChat && (
               <>
-                <div className="flex flex-col overflow-y-scroll no-scrollbar">
-                  <ScrollableChat messages={messages} />
-                </div>
+                <ScrollableChat messages={messages} />
 
                 <form
                   onKeyDown={handleKeyDown}
-                  className="h-2/5 rounded-md flex items-center px-4 overflow-hidden bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
+                  className="rounded-md flex items-center px-4 overflow-hidden bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
                 >
                   <input
                     type="text"

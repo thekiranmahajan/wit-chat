@@ -1,5 +1,4 @@
-import React from "react";
-import ScrollableFeed from "react-scrollable-feed";
+import React, { useEffect, useRef } from "react";
 import {
   isLastMessage,
   isSameSender,
@@ -10,12 +9,16 @@ import { ChatState } from "../context/ChatProvider";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
-
+  const chatEndRef = useRef(null);
+  useEffect(() => {
+    if (messages.length) {
+      chatEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
   return (
-    <ScrollableFeed
-      className=" no-scrollbar pb-5 rounded-xl scroll-smooth"
-      forceScroll
-    >
+    <div className="no-scrollbar rounded-xl scroll-smooth flex flex-col overflow-y-scroll h-full w-full">
       {messages &&
         messages.map((message, index) => (
           <div
@@ -58,7 +61,8 @@ const ScrollableChat = ({ messages }) => {
             </span>
           </div>
         ))}
-    </ScrollableFeed>
+      <div className="mt-5" ref={chatEndRef} />
+    </div>
   );
 };
 
