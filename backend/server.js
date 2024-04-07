@@ -74,7 +74,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("typing", (room) => socket.in(room).emit("typing"));
-  
+
   socket.on("stop_typing", (room) => socket.in(room).emit("stop_typing"));
 
   socket.on("new_message", (newMessageReceived) => {
@@ -86,6 +86,10 @@ io.on("connection", (socket) => {
 
       socket.in(user._id).emit("message_received", newMessageReceived);
     });
+  });
+  socket.off("setup", () => {
+    console.log("User Disconnected");
+    socket.leave(userData._id);
   });
 });
 
