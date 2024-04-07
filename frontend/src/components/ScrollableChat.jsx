@@ -10,8 +10,12 @@ import { ChatState } from "../context/ChatProvider";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
+
   return (
-    <ScrollableFeed className=" no-scrollbar pb-5 rounded-xl">
+    <ScrollableFeed
+      className=" no-scrollbar pb-5 rounded-xl scroll-smooth"
+      forceScroll
+    >
       {messages &&
         messages.map((message, index) => (
           <div

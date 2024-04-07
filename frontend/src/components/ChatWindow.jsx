@@ -81,10 +81,8 @@ const ChatWindow = () => {
       setIsLoading(false);
     }
   };
-  const sendMessage = async (e) => {
-    console.log("click");
-    e.preventDefault();
-    if (e.key === "Enter" && newMessage) {
+  const sendMessage = async () => {
+    if (newMessage.trim() !== "") {
       try {
         const config = {
           headers: {
@@ -109,6 +107,12 @@ const ChatWindow = () => {
           theme: "dark",
         });
       }
+    }
+  };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
     }
   };
   const handleTyping = (e) => {
@@ -173,15 +177,19 @@ const ChatWindow = () => {
                 <div className="flex flex-col overflow-y-scroll no-scrollbar">
                   <ScrollableChat messages={messages} />
                 </div>
-                <FormField
-                  inputType="text"
-                  styles="m-0 px-0 w-full"
-                  colorStyles="bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
-                  placeholder="Type message and press Enter..."
-                  handleOnChange={handleTyping}
-                  value={newMessage}
-                  handleOnKeyUp={sendMessage}
-                />
+
+                <form
+                  onKeyDown={handleKeyDown}
+                  className="h-2/5 rounded-md flex items-center px-4 overflow-hidden bg-[#00655F] shadow-lg hover:ring-2 ring-[#002133] transition-all duration-300"
+                >
+                  <input
+                    type="text"
+                    placeholder="Type message and press Enter..."
+                    className="bg-transparent outline-none border-none w-full p-4 truncate placeholder:text-sm h-full"
+                    value={newMessage}
+                    onChange={handleTyping}
+                  />
+                </form>
               </>
             )
           )}
