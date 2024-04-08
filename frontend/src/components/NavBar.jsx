@@ -9,12 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { ChatState } from "../context/ChatProvider";
 
 const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
-  const { user } = ChatState();
+  const { user, setChats, setUser } = ChatState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigate = useNavigate();
   const logoutUser = () => {
     localStorage.removeItem("userInfo");
+    setChats([]);
+    setUser(null);
     navigate("/");
   };
 
