@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { logo } from "../assets";
 import { FormField, Button } from "../components";
 import {
@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ChatState } from "../context/ChatProvider";
 
 const Home = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +28,11 @@ const Home = () => {
   const [cloudName, setCloudName] = useState(null);
   const [uploadPreset, setUploadPreset] = useState(null);
   const navigate = useNavigate();
+  const { setUser } = ChatState();
+
+  useEffect(() => {
+    fetchEnv();
+  }, []);
 
   const fetchEnv = async () => {
     try {
@@ -39,12 +45,11 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchEnv();
-  }, []);
-
-  useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    if (user) navigate("/chat");
+    if (user) {
+      setUser(user);
+      navigate("/chat");
+    }
   }, [navigate]);
 
   const uploadAvatar = async (e) => {
@@ -127,6 +132,7 @@ const Home = () => {
       const { data } = await axios.post("/api/user", userData, config);
 
       localStorage.setItem("userInfo", JSON.stringify(data));
+      setUser(data);
       setIsLoading(false);
       toast.success("User registration is successful!", {
         theme: "dark",
@@ -167,6 +173,7 @@ const Home = () => {
       );
 
       localStorage.setItem("userInfo", JSON.stringify(data));
+      setUser(data);
       setIsLoading(false);
       toast.success("User Logged In successful!", {
         theme: "dark",

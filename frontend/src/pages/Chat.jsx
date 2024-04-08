@@ -7,17 +7,14 @@ import {
   ChatWindow,
   GroupCreatePopUp,
 } from "../components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Chat = () => {
-  const { setUser, user } = ChatState();
+  const { user } = ChatState();
   const [isSidebar, setIsSidebar] = useState(false);
   const [isProfilePopUp, setIsProfilePopUp] = useState(false);
   const [isGroupChatPopUp, setIsGroupChatPopUp] = useState(false);
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    setUser(userInfo);
-  }, []);
+
   return (
     user !== null && (
       <div className="relative h-screen w-full flex flex-col font-Marvel pb-2 ">
@@ -30,7 +27,6 @@ const Chat = () => {
         <ProfilePopUp
           isProfilePopUp={isProfilePopUp}
           setIsProfilePopUp={setIsProfilePopUp}
-          user={user}
         />
         <GroupCreatePopUp
           setIsGroupChatPopUp={setIsGroupChatPopUp}
