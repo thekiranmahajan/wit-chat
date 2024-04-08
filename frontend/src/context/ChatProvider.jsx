@@ -11,6 +11,7 @@ export const ChatProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
+  const [isChatLoading, setIsChatLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,15 +24,18 @@ export const ChatProvider = ({ children }) => {
 
   const fetchChats = async () => {
     try {
+      setIsChatLoading(true);
       const config = {
         headers: { authorization: `Bearer ${user.token}` },
       };
       const { data } = await axios.get("/api/chat", config);
       setChats(data);
+      setIsChatLoading(false);
     } catch (error) {
       toast.error("Failed Fetch chats from API.", {
         theme: "dark",
       });
+      setIsChatLoading(false);
     }
   };
 
@@ -45,6 +49,7 @@ export const ChatProvider = ({ children }) => {
         chats,
         setChats,
         fetchChats,
+        isChatLoading,
       }}
     >
       <ToastContainer />

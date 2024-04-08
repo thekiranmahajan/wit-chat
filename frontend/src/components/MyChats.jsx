@@ -5,10 +5,16 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import UserSearchShimmer from "./UserSearchShimmer";
 import { getSender } from "../constants/chatDataRetrieval";
 const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
-  const [loggedUser, setLoggedUser] = useState();
+  const [loggedUser, setLoggedUser] = useState(null);
 
-  const { selectedChat, setSelectedChat, chats, fetchChats, user } =
-    ChatState();
+  const {
+    selectedChat,
+    setSelectedChat,
+    chats,
+    fetchChats,
+    user,
+    isChatLoading,
+  } = ChatState();
 
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
@@ -37,7 +43,9 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
       </div>
 
       <div className="h-full w-11/12 overflow-y-scroll no-scrollbar overflow-x-hidden py-5 px-2 ">
-        {chats?.length !== 0 ? (
+        {isChatLoading ? (
+          <UserSearchShimmer noOfTimes={10} />
+        ) : chats?.length !== 0 ? (
           <div className="flex flex-col">
             {chats?.map((chat) => (
               <div
@@ -74,7 +82,10 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
             ))}
           </div>
         ) : (
-          <UserSearchShimmer noOfTimes={10} />
+          <h2>
+            No chats found!... Search a user or create a group to start chatting
+            with friends.
+          </h2>
         )}
       </div>
     </div>
