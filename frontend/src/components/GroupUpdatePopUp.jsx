@@ -19,7 +19,7 @@ const GroupUpdatePopUp = ({
   isGroupUpdatePopUp,
   fetchMessages,
 }) => {
-  const { user, selectedChat, setSelectedChat, setRefreshChats } = ChatState();
+  const { user, selectedChat, setSelectedChat, fetchChats } = ChatState();
   const [groupChatName, setGroupChatName] = useState(
     selectedChat?.chatName || ""
   );
@@ -103,7 +103,7 @@ const GroupUpdatePopUp = ({
         config
       );
       setSelectedChat(data);
-      setRefreshChats((prev) => !prev);
+      fetchChats();
       setIsloading(false);
       toast.success(`Added ${userToAdd.name} to ${selectedChat.chatName}`, {
         theme: "dark",
@@ -141,7 +141,7 @@ const GroupUpdatePopUp = ({
         config
       );
       userToRemove._id === user._id ? setSelectedChat() : setSelectedChat(data);
-      setRefreshChats((prev) => !prev);
+      fetchChats();
       fetchMessages();
       setIsloading(false);
       userToRemove._id === user._id
