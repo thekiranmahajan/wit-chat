@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ChatState } from "../context/ChatProvider";
-import axios from "axios";
 import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import UserSearchShimmer from "./UserSearchShimmer";
@@ -8,30 +7,18 @@ import { getSender } from "../constants/chatDataRetrieval";
 const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
   const [loggedUser, setLoggedUser] = useState();
 
-  const { user, selectedChat, setSelectedChat, chats, setChats, refreshChats } =
+  const { selectedChat, setSelectedChat, chats, fetchChats, user } =
     ChatState();
 
-  const fetchChats = async () => {
-    try {
-      const config = {
-        headers: { authorization: `Bearer ${user.token}` },
-      };
-      const { data } = await axios.get("/api/chat", config);
-      setChats(data);
-    } catch (error) {
-      toast.error("Failed Fetch chats from API.", {
-        theme: "dark",
-      });
-    }
-  };
+  useEffect(() => {
+    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+    fetchChats();
+  }, [user]);
+
   const HandleGroupChat = () => {
     setIsGroupChatPopUp(true);
     setIsSidebar(false);
   };
-  useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-    fetchChats();
-  }, [refreshChats]);
 
   return (
     <div
@@ -50,11 +37,11 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
       </div>
 
       <div className="h-full w-11/12 overflow-y-scroll no-scrollbar overflow-x-hidden py-5 px-2 ">
-        {chats.length !== 0 ? (
+        {chats?.length !== 0 ? (
           <div className="flex flex-col">
-            {chats.map((chat) => (
+            {chats?.map((chat) => (
               <div
-                key={chat._id}
+                key={chat?._id}
                 onClick={() => setSelectedChat(chat)}
                 className={`bg-[#006761] mt-2 h-14 w-full rounded-md flex items-center p-3 overflow-hidden cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300 ${
                   selectedChat === chat && "bg-[#91AA66]"
