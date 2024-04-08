@@ -38,9 +38,6 @@ const ChatWindow = () => {
     socket.on("connected", () => setIsSockectConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop_typing", () => setIsTyping(false));
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   useEffect(() => {
