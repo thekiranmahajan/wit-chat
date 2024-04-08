@@ -39,3 +39,19 @@ export const isSameSenderMargin = (messages, message, index, userId) => {
 export const isSameUser = (messages, message, index) => {
   return index > 0 && messages[index - 1]?.sender?._id === message?.sender?._id;
 };
+
+export const formatTime = (timestamp) => {
+  const date = new Date(timestamp);
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+  const formattedHours = hours < 10 ? `0${hours}` : hours;
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+};
+
+export const shouldIncreaseSize = (content) => {
+  const emojiRegex = /^(\p{Emoji}){1,2}$/u;
+  return emojiRegex.test(content.trim());
+};
