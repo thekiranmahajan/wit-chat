@@ -71,12 +71,26 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
                     />
                   )}
                 </div>
-                <div className="relative leading-5 truncate h-12 w-3/4 flex flex-col justify-center py-1 ml-4">
-                  <h2 className=" ">
+                <div className="relative leading-5 truncate h-12 w-3/4 flex flex-col justify-center py-1 ml-4 ">
+                  <h2 className="font-extrabold">
                     {chat?.isGroupChat
                       ? chat?.chatName
                       : getSender(chat?.users, loggedUser)?.name}
                   </h2>
+                  {chat?.latestMessage?.content ? (
+                    <p className="text-sm text-[#91AA66] w-11/12 truncate overflow-hidden">
+                      <span className="font-extrabold text-slate-300">
+                        {chat?.latestMessage?.sender?.name === user?.name
+                          ? "You"
+                          : chat.latestMessage.sender.name}
+                        :{" "}
+                      </span>
+
+                      {chat?.latestMessage?.content}
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             ))}

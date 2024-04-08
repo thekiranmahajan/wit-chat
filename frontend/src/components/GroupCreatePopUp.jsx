@@ -53,7 +53,6 @@ const GroupCreatePopUp = ({ isGroupChatPopUp, setIsGroupChatPopUp }) => {
       };
 
       const { data } = await axios.get(`/api/user?search=${query}`, config);
-      console.log(data);
       setSearchedUsers(data);
       setIsloading(false);
     } catch (error) {

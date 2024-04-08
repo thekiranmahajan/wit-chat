@@ -16,7 +16,6 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const handleSearch = async () => {
-    console.log(searchText);
     setIsUsersloading(true);
     if (!searchText) {
       toast.warn("Please add name or email to search", {
@@ -35,7 +34,6 @@ const UserSearchSideBar = ({ isSidebar, setIsSidebar }) => {
         `/api/user?search=${searchText}`,
         config
       );
-      console.log(data);
       setSearchedUsers(data);
       setIsUsersloading(false);
     } catch (error) {

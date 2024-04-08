@@ -81,7 +81,6 @@ const ChatWindow = () => {
         `/api/message/${selectedChat._id}`,
         config
       );
-      console.log(data);
       setMessages(data);
       setIsLoading(false);
 
@@ -111,7 +110,6 @@ const ChatWindow = () => {
           },
           config
         );
-        // console.log(data);
         socket.emit("new_message", data);
         setMessages([...messages, data]);
       } catch (error) {
