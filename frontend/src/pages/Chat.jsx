@@ -27,6 +27,7 @@ const Chat = () => {
         <ProfilePopUp
           isProfilePopUp={isProfilePopUp}
           setIsProfilePopUp={setIsProfilePopUp}
+          user={user}
         />
         <GroupCreatePopUp
           setIsGroupChatPopUp={setIsGroupChatPopUp}

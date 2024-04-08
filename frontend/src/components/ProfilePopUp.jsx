@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { ChatState } from "../context/ChatProvider";
 
-const ProfilePopUp = ({ setIsProfilePopUp, isProfilePopUp }) => {
-  const { user } = ChatState();
+const ProfilePopUp = ({ setIsProfilePopUp, isProfilePopUp, user }) => {
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
       setIsProfilePopUp(false);
