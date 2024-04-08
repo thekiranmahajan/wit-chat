@@ -6,7 +6,6 @@ import { getSender } from "../constants/chatDataRetrieval";
 import ProfilePopUp from "./ProfilePopUp";
 import GroupUpdatePopUp from "./GroupUpdatePopUp";
 import { loader, animationData } from "../assets";
-import FormField from "./FormField";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ScrollableChat from "./ScrollableChat";
@@ -107,7 +106,7 @@ const ChatWindow = () => {
         const { data } = await axios.post(
           "/api/message",
           {
-            content: newMessage,
+            content: newMessage.trim(),
             chatId: selectedChat._id,
           },
           config
