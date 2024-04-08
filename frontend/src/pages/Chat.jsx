@@ -32,7 +32,7 @@ const Chat = () => {
           setIsGroupChatPopUp={setIsGroupChatPopUp}
           isGroupChatPopUp={isGroupChatPopUp}
         />
-        <div className="w-full h-[91%] flex justify-center p-5 overflow-hidden gap-4 md:gap-8 ">
+        <div className="w-full h-full flex justify-center py-4 px-1 sm:p-4 overflow-hidden md:gap-4 ">
           <MyChats
             setIsGroupChatPopUp={setIsGroupChatPopUp}
             setIsSidebar={setIsSidebar}

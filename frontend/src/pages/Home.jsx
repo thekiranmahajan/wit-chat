@@ -139,9 +139,12 @@ const Home = () => {
       });
       navigate("/chat");
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
-        theme: "dark",
-      });
+      toast.error(
+        `Unable to register User at this time, Please try again later.`,
+        {
+          theme: "dark",
+        }
+      );
       setIsLoading(false);
     }
   };
@@ -180,7 +183,7 @@ const Home = () => {
       });
       navigate("/chat");
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`Failed to login User, Please try again later.`, {
         theme: "dark",
       });
       setIsLoading(false);

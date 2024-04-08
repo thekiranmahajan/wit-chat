@@ -30,7 +30,7 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
     <div
       className={`${
         selectedChat ? "hidden" : "flex"
-      } blurEffect max-w-md md:w-2/6 w-full h-full rounded-lg flex-col p-5 shadow-lg items-center gap-4 md:flex`}
+      } blurEffect max-w-md md:w-2/5 w-full h-full rounded-lg flex-col p-5 shadow-lg items-center gap-4 md:flex`}
     >
       <div className="flex w-full items-center justify-between flex-col xl:flex-row gap-2">
         <h2 className="text-2xl md:text-3xl  font-extrabold">My Chats</h2>
