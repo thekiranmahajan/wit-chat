@@ -10,6 +10,7 @@ const ChatContext = createContext();
 export const ChatProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
+  const [notifications, setNotifications] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [isChatLoading, setIsChatLoading] = useState(false);
   const navigate = useNavigate();
@@ -50,6 +51,8 @@ export const ChatProvider = ({ children }) => {
         setChats,
         fetchChats,
         isChatLoading,
+        notifications,
+        setNotifications,
       }}
     >
       <ToastContainer />
