@@ -7,10 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChatState } from "../context/ChatProvider";
+import NotificationsMenu from "./NotificationsMenu";
 
 const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
   const { user, setChats, setUser } = ChatState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNotifications, setIsNotifications] = useState(false);
 
   const navigate = useNavigate();
   const logoutUser = () => {
@@ -28,6 +30,10 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
   };
   return (
     <div className="relative blurEffect w-full h-16 flex items-center justify-between flex-wrap sm:px-8 px-4 z-10">
+      <NotificationsMenu
+        isNotifications={isNotifications}
+        setIsNotifications={setIsNotifications}
+      />
       <div
         onClick={() => {
           setIsSidebar(true);
@@ -42,7 +48,14 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
       <h2 className="font-mono font-extrabold sm:text-2xl text-xl">witChat</h2>
       <div className="flex items-center justify-between w-36 gap-2">
         <div className="bg-[#002133] h-12 rounded-md w-12 flex p-4 items-center text-xl  cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300">
-          <FontAwesomeIcon icon={faBell} />
+          <FontAwesomeIcon
+            icon={faBell}
+            onClick={() => {
+              setIsNotifications(true);
+              setIsSidebar(false);
+              setIsMenuOpen(false);
+            }}
+          />
         </div>
         <div>
           <div
@@ -67,7 +80,7 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
             className={`absolute top-16 rounded-md  w-20 h-20 bg-[#002133] flex items-center justify-around flex-col py-2 ${
               isMenuOpen
                 ? "opacity-100 translate-y-0 transition-all duration-500 ease-in-out "
-                : " opacity-0 translate-y-full transition-all duration-500"
+                : " opacity-100 -translate-y-56 transition-all duration-500"
             }`}
           >
             <h3
