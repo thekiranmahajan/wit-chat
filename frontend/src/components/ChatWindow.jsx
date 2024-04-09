@@ -14,7 +14,14 @@ import Lottie from "react-lottie";
 var selectedChatCampare;
 
 const ChatWindow = () => {
-  const { selectedChat, setSelectedChat, user } = ChatState();
+  const {
+    selectedChat,
+    setSelectedChat,
+    user,
+    notifications,
+    setNotifications,
+    fetchChats,
+  } = ChatState();
   const [isProfilePopUp, setIsProfilePopUp] = useState(false);
   const [isGroupUpdatePopUp, setIsGroupUpdatePopUp] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -46,6 +53,8 @@ const ChatWindow = () => {
     selectedChatCampare = selectedChat;
   }, [selectedChat]);
 
+  console.log(notifications, "______________");
+
   useEffect(() => {
     socket.on("message_received", (newMessageReceived) => {
       if (
@@ -53,6 +62,10 @@ const ChatWindow = () => {
         selectedChatCampare._id !== newMessageReceived.chat._id
       ) {
         // Give Notification
+        if (!notifications.includes(newMessageReceived)) {
+          setNotifications([newMessageReceived, ...notifications]);
+          fetchChats();
+        }
       } else {
         setMessages([...messages, newMessageReceived]);
       }
@@ -146,6 +159,7 @@ const ChatWindow = () => {
       }
     }, timeout);
   };
+  // console.log("selectedChat", selectedChat?.users, "User", user);
 
   return (
     <>
