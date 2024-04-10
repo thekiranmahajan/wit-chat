@@ -2,14 +2,17 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { ChatState } from "../context/ChatProvider";
+import { getSender } from "../constants/chatDataRetrieval";
 
 const NotificationsMenu = ({ isNotifications, setIsNotifications }) => {
-  const { notifications, setNotifications } = ChatState;
+  const { notifications, setSelectedChat, setNotifications, user } =
+    ChatState();
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
       setIsNotifications(false);
     }
   };
+  
   return (
     <div
       onClick={handleOutsideClick}
@@ -21,7 +24,7 @@ const NotificationsMenu = ({ isNotifications, setIsNotifications }) => {
       }`}
     >
       <div
-        className={`z-40 relative flex flex-col items-center rounded-lg min-h-60 max-w-md w-11/12  bg-[#002133] py-5 `}
+        className={`z-40 relative flex flex-col items-center  rounded-lg min-h-60 max-w-md w-11/12  bg-[#002133] py-5 `}
       >
         <FontAwesomeIcon
           onClick={() => setIsNotifications(false)}
@@ -29,11 +32,40 @@ const NotificationsMenu = ({ isNotifications, setIsNotifications }) => {
           icon={faXmark}
         />
 
-        <div className="bg-red-500 z-50 h-10 w-10 text-white">
+        <div className="flex flex-col  mt-7 rounded-md  text-white p-2 gap-2">
           {notifications?.length === 0 ? (
             <h3>No new notifications</h3>
           ) : (
-            notifications?.map(() => <div></div>)
+            notifications?.map((notification) => (
+              <div
+                className="cursor-pointer  text-left max-w-full bg-[#006761] px-4 py-1 rounded-lg"
+                onClick={() => {
+                  setSelectedChat(notification?.chat);
+                  setNotifications(
+                    notifications.filter((n) => n !== notification)
+                  );
+                  setIsNotifications(false);
+                }}
+                key={notification?._id}
+              >
+                {notification.chat?.isGroupChat ? (
+                  <>
+                    New Message in{" "}
+                    <span className="font-extrabold text-yellow-500 hover:scale-105 transition-all duration-300">
+                      {notification?.chat?.chatName}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    New Message from{" "}
+                    <span className="font-extrabold text-green-500 hover:scale-105 transition-all duration-300">
+                      {notification?.sender?.name}
+                      {/* {getSender(notification?.chat?.users, user)?.name} */}
+                    </span>
+                  </>
+                )}
+              </div>
+            ))
           )}
         </div>
       </div>

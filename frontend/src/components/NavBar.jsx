@@ -4,17 +4,18 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChatState } from "../context/ChatProvider";
 import NotificationsMenu from "./NotificationsMenu";
 
 const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
-  const { user, setChats, setUser } = ChatState();
+  const { user, setChats, setUser, notifications } = ChatState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNotifications, setIsNotifications] = useState(false);
 
   const navigate = useNavigate();
+
   const logoutUser = () => {
     localStorage.removeItem("userInfo");
     setChats([]);
@@ -47,15 +48,20 @@ const NavBar = ({ setIsSidebar, isSidebar, setIsProfilePopUp }) => {
       </div>
       <h2 className="font-mono font-extrabold sm:text-2xl text-xl">witChat</h2>
       <div className="flex items-center justify-between w-36 gap-2">
-        <div className="bg-[#002133] h-12 rounded-md w-12 flex p-4 items-center text-xl  cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300">
-          <FontAwesomeIcon
-            icon={faBell}
-            onClick={() => {
-              setIsNotifications(true);
-              setIsSidebar(false);
-              setIsMenuOpen(false);
-            }}
-          />
+        <div
+          onClick={() => {
+            setIsNotifications(true);
+            setIsSidebar(false);
+            setIsMenuOpen(false);
+          }}
+          className="relative bg-[#002133] h-12 rounded-md w-12 flex p-4 items-center text-xl  cursor-pointer hover:scale-105 transition-transform active:scale-95 duration-300"
+        >
+          <FontAwesomeIcon icon={faBell} />
+          {notifications && notifications.length !== 0 && (
+            <span className="absolute -right-1 -top-1 text-sm bg-red-500 h-5 w-5 rounded-full text-center animate-pulse ">
+              {notifications?.length}
+            </span>
+          )}
         </div>
         <div>
           <div
