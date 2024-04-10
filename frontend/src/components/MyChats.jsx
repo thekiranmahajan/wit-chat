@@ -14,8 +14,10 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
     fetchChats,
     user,
     isChatLoading,
+    notifications,
+    setNotifications,
   } = ChatState();
-
+  console.log(notifications);
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
@@ -26,6 +28,24 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
     setIsSidebar(false);
   };
 
+  const handleChatClick = (chat) => {
+    setSelectedChat(chat);
+
+    const updatedNotifications = notifications.filter(
+      (notification) =>
+        notification.sender._id !== chat?.latestMessage?.sender?._id ||
+        notification.chat?._id !== chat?._id
+    );
+    setNotifications(updatedNotifications);
+  };
+
+  const hasNotification = (chat) => {
+    return notifications.some(
+      (notification) =>
+        notification.sender._id === chat?.latestMessage?.sender?._id &&
+        notification.chat?._id === chat?._id
+    );
+  };
   return (
     <div
       className={`${
@@ -50,15 +70,15 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
             {chats?.map((chat) => (
               <div
                 key={chat?._id}
-                onClick={() => setSelectedChat(chat)}
+                onClick={() => handleChatClick(chat)}
                 className={`bg-[#006761] mt-2 h-14 w-full rounded-md flex items-center p-3 overflow-hidden cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300 ${
-                  selectedChat === chat && "bg-[#91AA66]"
+                  selectedChat === chat && "bg-[#004451db]"
                 }`}
               >
-                <div className="sm:h-10 sm:w-10 h-8 w-8 rounded-full overflow-hidden flex items-center justify-center">
+                <div className=" relative sm:h-10 sm:w-10 h-8 w-8 rounded-full  flex items-center justify-center">
                   {!chat?.isGroupChat && (
                     <img
-                      className="h-full w-full object-cover rounded-full"
+                      className="h-full w-full object-cover rounded-full overflow-hidden"
                       src={getSender(chat?.users, loggedUser)?.avatar}
                       alt="avatar"
                     />
@@ -69,6 +89,9 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
                       src="https://i.pinimg.com/564x/98/53/c5/9853c5ae293810fc37fb567c8940c303.jpg"
                       alt="avatar"
                     />
+                  )}
+                  {hasNotification(chat) && (
+                    <div className="absolute -top-1 -right-1 h-4 w-4 bg-green-500 rounded-full"></div>
                   )}
                 </div>
                 <div className="relative leading-5 truncate h-12 w-3/4 flex flex-col justify-center py-1 ml-4 ">
@@ -82,7 +105,7 @@ const MyChats = ({ setIsGroupChatPopUp, setIsSidebar }) => {
                       <span className="font-extrabold text-slate-300">
                         {chat?.latestMessage?.sender?.name === user?.name
                           ? "You"
-                          : chat.latestMessage.sender.name}
+                          : chat?.latestMessage?.sender?.name}
                         :{" "}
                       </span>
 

@@ -53,8 +53,6 @@ const ChatWindow = () => {
     selectedChatCampare = selectedChat;
   }, [selectedChat]);
 
-  console.log(notifications, "______________");
-
   useEffect(() => {
     socket.on("message_received", (newMessageReceived) => {
       if (
@@ -159,7 +157,6 @@ const ChatWindow = () => {
       }
     }, timeout);
   };
-  // console.log("selectedChat", selectedChat?.users, "User", user);
 
   return (
     <>
