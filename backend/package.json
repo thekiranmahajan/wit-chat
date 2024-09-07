@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "server": "node --watch ./backend/server.js",
-    "start": "node ./backend/server.js"
+    "server": "node --watch server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "Realtime",
