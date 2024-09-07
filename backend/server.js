@@ -9,7 +9,6 @@ import {
   notFound,
   errorHandler,
 } from "./middleware/errorHandlingMiddleware.js";
-import path, { join } from "path";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -18,6 +17,10 @@ dotenv.config();
 connectDB();
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Welcome to WitChat Realtime Chat App's Server!");
+});
 
 app.get("/api/env", (req, res) => {
   const safeEnv = {
@@ -29,21 +32,6 @@ app.get("/api/env", (req, res) => {
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
-
-// ----------------Deployment-----------------
-const __dirname1 = path.resolve();
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "/frontend/dist")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname1, "frontend", "dist", "index.html"));
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("API initiated!");
-  });
-}
-// ----------------Deployment-----------------
 
 app.use(notFound);
 app.use(errorHandler);
