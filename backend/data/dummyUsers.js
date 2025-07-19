@@ -1,0 +1,123 @@
+const users = [
+  {
+    name: "Aarav Sharma",
+    email: "aarav.sharma@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    name: "Neha Patel",
+    email: "neha.patel@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+  },
+  {
+    name: "Rohan Gupta",
+    email: "rohan.gupta@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
+  },
+  {
+    name: "Priya Singh",
+    email: "priya.singh@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/4.jpg",
+  },
+  {
+    name: "Raj Kumar",
+    email: "raj.kumar@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/5.jpg",
+  },
+  {
+    name: "Ananya Das",
+    email: "ananya.das@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/6.jpg",
+  },
+  {
+    name: "Arjun Reddy",
+    email: "arjun.reddy@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/7.jpg",
+  },
+  {
+    name: "Ishaan Sharma",
+    email: "ishaan.sharma@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/8.jpg",
+  },
+  {
+    name: "Pooja Verma",
+    email: "pooja.verma@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/9.jpg",
+  },
+  {
+    name: "Vikram Chauhan",
+    email: "vikram.chauhan@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/10.jpg",
+  },
+  {
+    name: "Sneha Gupta",
+    email: "sneha.gupta@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/11.jpg",
+  },
+  {
+    name: "Vishal Sharma",
+    email: "vishal.sharma@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/12.jpg",
+  },
+  {
+    name: "Nikhil Patel",
+    email: "nikhil.patel@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/13.jpg",
+  },
+  {
+    name: "Tanvi Shah",
+    email: "tanvi.shah@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/14.jpg",
+  },
+  {
+    name: "Yash Chopra",
+    email: "yash.chopra@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/15.jpg",
+  },
+  {
+    name: "Meera Joshi",
+    email: "meera.joshi@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/16.jpg",
+  },
+  {
+    name: "Karan Mehta",
+    email: "karan.mehta@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/17.jpg",
+  },
+  {
+    name: "Simran Kaur",
+    email: "simran.kaur@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/18.jpg",
+  },
+  {
+    name: "Aditya Rao",
+    email: "aditya.rao@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/19.jpg",
+  },
+  {
+    name: "Riya Sen",
+    email: "riya.sen@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/women/20.jpg",
+  },
+];
+export default users;
